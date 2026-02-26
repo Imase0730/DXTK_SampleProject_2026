@@ -58,6 +58,15 @@ void Game::Update(DX::StepTimer const& timer)
 
     // TODO: Add your game logic here.
     elapsedTime;
+
+    // キーボードトラッカーの更新
+    auto keyboard = Keyboard::Get().GetState();
+    m_keyboardTracker.Update(keyboard);
+
+    // マウスボタントラッカーの更新
+    auto mouse = Mouse::Get().GetState();
+    m_mouseButtonTracker.Update(mouse);
+
 }
 #pragma endregion
 
@@ -156,8 +165,8 @@ void Game::OnWindowSizeChanged(int width, int height)
 void Game::GetDefaultSize(int& width, int& height) const noexcept
 {
     // TODO: Change to desired default window size (note minimum size is 320x200).
-    width = 800;
-    height = 600;
+    width = 1280;
+    height = 720;
 }
 #pragma endregion
 
@@ -168,7 +177,10 @@ void Game::CreateDeviceDependentResources()
     auto device = m_deviceResources->GetD3DDevice();
 
     // TODO: Initialize device dependent objects here (independent of window size).
-    device;
+
+    // コモンステートの作成
+    m_states = std::make_unique<CommonStates>(device);
+
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
