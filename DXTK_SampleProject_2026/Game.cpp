@@ -1,4 +1,4 @@
-//
+﻿//
 // Game.cpp
 //
 
@@ -12,6 +12,12 @@ using namespace DirectX;
 using Microsoft::WRL::ComPtr;
 
 Game::Game() noexcept(false)
+    : m_keyboardTracker{}
+    , m_mouseButtonTracker{}
+    , m_states{}
+    , m_debugFont{}
+    , m_sceneManager{}
+    , m_userResources{}
 {
     m_deviceResources = std::make_unique<DX::DeviceResources>();
     // TODO: Provide parameters for swapchain format, depth/stencil format, and backbuffer count.
@@ -57,7 +63,6 @@ void Game::Update(DX::StepTimer const& timer)
     float elapsedTime = float(timer.GetElapsedSeconds());
 
     // TODO: Add your game logic here.
-    elapsedTime;
 
     // キーボードトラッカーの更新
     auto keyboard = Keyboard::Get().GetState();
@@ -67,6 +72,8 @@ void Game::Update(DX::StepTimer const& timer)
     auto mouse = Mouse::Get().GetState();
     m_mouseButtonTracker.Update(mouse);
 
+    // シーンの更新
+    m_sceneManager.Update(elapsedTime);
 }
 #pragma endregion
 
@@ -87,6 +94,9 @@ void Game::Render()
 
     // TODO: Add your rendering code here.
     context;
+
+    // シーンの描画
+    m_sceneManager.Render();
 
     m_deviceResources->PIXEndEvent();
 
@@ -175,23 +185,39 @@ void Game::GetDefaultSize(int& width, int& height) const noexcept
 void Game::CreateDeviceDependentResources()
 {
     auto device = m_deviceResources->GetD3DDevice();
+    auto context = m_deviceResources->GetD3DDeviceContext();
 
     // TODO: Initialize device dependent objects here (independent of window size).
+    
+    // デバッグ用文字列表示オブジェクトの作成
+    m_debugFont = std::make_unique<Imase::DebugFont>(device, context, L"Resources/Font/SegoeUI_18.spritefont");
 
     // コモンステートの作成
     m_states = std::make_unique<CommonStates>(device);
 
+    // ユーザーリソースの設定
+    m_userResources.SetStepTimerStates(&m_timer);                   // <- StepTimer
+    m_userResources.SetDeviceResources(m_deviceResources.get());    // <- DeviceResources
+    m_userResources.SetKeyboardTracker(&m_keyboardTracker);         // <- KeyboardTracker
+    m_userResources.SetMouseButtonTracker(&m_mouseButtonTracker);   // <- MouseButtonTracker
+    m_userResources.SetCommonStates(m_states.get());                // <- CommonStates
+    m_userResources.SetDebugFont(m_debugFont.get());                // <- DebugFont
+
+    // ユーザーリソースを設定
+    m_sceneManager.SetUserResources(&m_userResources);
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
 void Game::CreateWindowSizeDependentResources()
 {
     // TODO: Initialize windows-size dependent objects here.
+    m_sceneManager.CreateWindowSizeDependentResources();
 }
 
 void Game::OnDeviceLost()
 {
     // TODO: Add Direct3D resource cleanup here.
+    m_sceneManager.OnDeviceLost();
 }
 
 void Game::OnDeviceRestored()
