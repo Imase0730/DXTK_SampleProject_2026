@@ -5,7 +5,7 @@
 #include "pch.h"
 #include "Game.h"
 
-#include "Scene/SceneA.h";
+#include "Scene/SceneA.h"
 
 extern void ExitGame() noexcept;
 
@@ -200,7 +200,7 @@ void Game::CreateDeviceDependentResources()
     // コモンステートの作成
     m_states = std::make_unique<CommonStates>(device);
 
-    // ユーザーリソースの設定
+    // ゲームコンテキストの設定
     m_gameContexts.SetStepTimerStates(&m_timer);                   // <- StepTimer
     m_gameContexts.SetDeviceResources(m_deviceResources.get());    // <- DeviceResources
     m_gameContexts.SetKeyboardTracker(&m_keyboardTracker);         // <- KeyboardTracker
@@ -208,7 +208,7 @@ void Game::CreateDeviceDependentResources()
     m_gameContexts.SetCommonStates(m_states.get());                // <- CommonStates
     m_gameContexts.SetDebugFont(m_debugFont.get());                // <- DebugFont
 
-    // ユーザーリソースを設定
+    // ゲームコンテキストを設定
     m_sceneManager.SetGameContexts(&m_gameContexts);
 }
 

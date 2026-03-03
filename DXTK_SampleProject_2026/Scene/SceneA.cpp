@@ -49,6 +49,13 @@ void SceneA::Render()
 	auto debugFont = GetGameContexts()->GetDebugFont();
 	auto states = GetGameContexts()->GetCommonStates();
 
+	m_spriteBatch->Begin(SpriteSortMode_Deferred, states->NonPremultiplied());
+
+	// スプライトの描画
+	m_spriteBatch->Draw(m_texture.Get(), SimpleMath::Vector2(100.0f, 100.0f));
+
+	m_spriteBatch->End();
+
 	// デバッグ用文字列の描画
 	debugFont->Render(states);
 }
@@ -61,6 +68,17 @@ void SceneA::Finalize()
 // デバイスに依存するリソースを作成する関数
 void SceneA::CreateDeviceDependentResources()
 {
+	auto device = GetGameContexts()->GetDeviceResources()->GetD3DDevice();
+	auto context = GetGameContexts()->GetDeviceResources()->GetD3DDeviceContext();
+
+	// スプライトバッチの作成
+	m_spriteBatch = std::make_unique<SpriteBatch>(context);
+
+	// テクスチャのロード
+	DX::ThrowIfFailed(
+		CreateDDSTextureFromFile(device, L"Resources/Textures/ShootingGame.dds", nullptr, m_texture.ReleaseAndGetAddressOf())
+	);
+
 }
 
 // ウインドウサイズに依存するリソースを作成する関数

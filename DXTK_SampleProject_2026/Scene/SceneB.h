@@ -39,5 +39,10 @@ public:
 	// デバイスロストした時に呼び出される関数
 	void OnDeviceLost() override;
 
+private:
+
+	// モデル
+	std::unique_ptr<DirectX::Model> m_model;
+
 };
 

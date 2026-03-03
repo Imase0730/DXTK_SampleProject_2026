@@ -36,8 +36,24 @@ void SceneB::Update(float elapsedTime)
 // 描画処理
 void SceneB::Render()
 {
+	auto context = GetGameContexts()->GetDeviceResources()->GetD3DDeviceContext();
 	auto debugFont = GetGameContexts()->GetDebugFont();
 	auto states = GetGameContexts()->GetCommonStates();
+
+	// モデルの描画
+	SimpleMath::Matrix world;
+	SimpleMath::Matrix view = SimpleMath::Matrix::CreateLookAt(
+		SimpleMath::Vector3(0.0f, 2.0f, 5.0f),
+		SimpleMath::Vector3(0.0f, 0.0f, 0.0f),
+		SimpleMath::Vector3::Up
+	);
+	SimpleMath::Matrix projection = SimpleMath::Matrix::CreatePerspectiveFieldOfView(
+		XMConvertToRadians(45.0f),
+		1280.0f / 720.0f,
+		0.1f,
+		100.0f
+	);
+	m_model->Draw(context, *states, world, view, projection);
 
 	// デバッグ用文字列の描画
 	debugFont->Render(states);
@@ -51,6 +67,12 @@ void SceneB::Finalize()
 // デバイスに依存するリソースを作成する関数
 void SceneB::CreateDeviceDependentResources()
 {
+	auto device = GetGameContexts()->GetDeviceResources()->GetD3DDevice();
+
+	//	モデルのロード
+	EffectFactory fx(device);
+	fx.SetDirectory(L"Resources/Models");
+	m_model = Model::CreateFromCMO(device, L"Resources/Models/Monkey.cmo", fx);
 }
 
 // ウインドウサイズに依存するリソースを作成する関数
