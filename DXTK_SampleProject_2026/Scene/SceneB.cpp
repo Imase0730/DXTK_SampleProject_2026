@@ -28,17 +28,17 @@ void SceneB::Update(float elapsedTime)
 {
 	elapsedTime;
 
-	auto debugFont = GetGameContexts()->GetDebugFont();
+	auto& debugFont = GetGameContexts()->debugFont;
 
-	debugFont->AddString(L"SceneB", SimpleMath::Vector2(0.0f, 0.0f));
+	debugFont.AddString(L"SceneB", SimpleMath::Vector2(0.0f, 0.0f));
 }
 
 // 描画処理
 void SceneB::Render()
 {
-	auto context = GetGameContexts()->GetDeviceResources()->GetD3DDeviceContext();
-	auto debugFont = GetGameContexts()->GetDebugFont();
-	auto states = GetGameContexts()->GetCommonStates();
+	auto context = GetGameContexts()->deviceResources.GetD3DDeviceContext();
+	auto& debugFont = GetGameContexts()->debugFont;
+	auto& states = GetGameContexts()->commonStates;
 
 	// モデルの描画
 	SimpleMath::Matrix world;
@@ -53,10 +53,10 @@ void SceneB::Render()
 		0.1f,
 		100.0f
 	);
-	m_model->Draw(context, *states, world, view, projection);
+	m_model->Draw(context, states, world, view, projection);
 
 	// デバッグ用文字列の描画
-	debugFont->Render(states);
+	debugFont.Render(&states);
 }
 
 // 終了処理
@@ -67,7 +67,7 @@ void SceneB::Finalize()
 // デバイスに依存するリソースを作成する関数
 void SceneB::CreateDeviceDependentResources()
 {
-	auto device = GetGameContexts()->GetDeviceResources()->GetD3DDevice();
+	auto device = GetGameContexts()->deviceResources.GetD3DDevice();
 
 	//	モデルのロード
 	EffectFactory fx(device);

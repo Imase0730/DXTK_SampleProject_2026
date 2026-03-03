@@ -36,9 +36,7 @@
     <ClInclude Include="Scene\SceneB.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\GameContexts.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
+    <ClInclude Include="GameContext.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

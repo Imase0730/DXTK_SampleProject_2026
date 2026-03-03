@@ -18,8 +18,8 @@ Game::Game() noexcept(false)
     , m_mouseButtonTracker{}
     , m_states{}
     , m_debugFont{}
+    , m_gameContext{}
     , m_sceneManager{}
-    , m_gameContexts{}
 {
     m_deviceResources = std::make_unique<DX::DeviceResources>();
     // TODO: Provide parameters for swapchain format, depth/stencil format, and backbuffer count.
@@ -201,15 +201,17 @@ void Game::CreateDeviceDependentResources()
     m_states = std::make_unique<CommonStates>(device);
 
     // ゲームコンテキストの設定
-    m_gameContexts.SetStepTimerStates(&m_timer);                   // <- StepTimer
-    m_gameContexts.SetDeviceResources(m_deviceResources.get());    // <- DeviceResources
-    m_gameContexts.SetKeyboardTracker(&m_keyboardTracker);         // <- KeyboardTracker
-    m_gameContexts.SetMouseButtonTracker(&m_mouseButtonTracker);   // <- MouseButtonTracker
-    m_gameContexts.SetCommonStates(m_states.get());                // <- CommonStates
-    m_gameContexts.SetDebugFont(m_debugFont.get());                // <- DebugFont
+    m_gameContext.emplace(
+        m_timer,                 // <- StepTimer
+        *m_deviceResources,      // <- DeviceResources
+        m_keyboardTracker,       // <- KeyboardTracker
+        m_mouseButtonTracker,    // <- MouseButtonTracker
+        *m_states,               // <- CommonStates
+        *m_debugFont             // <- DebugFont
+    );
 
     // ゲームコンテキストを設定
-    m_sceneManager.SetGameContexts(&m_gameContexts);
+    m_sceneManager.SetGameContexts(&m_gameContext.value());
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.

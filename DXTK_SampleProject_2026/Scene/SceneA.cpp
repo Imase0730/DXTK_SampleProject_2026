@@ -29,27 +29,27 @@ void SceneA::Update(float elapsedTime)
 {
 	elapsedTime;
 
-	Keyboard::KeyboardStateTracker* tracker = GetGameContexts()->GetKeyboardTracker();
+	Keyboard::KeyboardStateTracker& tracker = GetGameContexts()->keyboardTracker;
 
 	// スペースキーが押された
-	if (tracker->pressed.Space)
+	if (tracker.pressed.Space)
 	{
 		// 次のシーンへ
 		ChangeScene<SceneB>();
 	}
 
-	auto debugFont = GetGameContexts()->GetDebugFont();
+	auto& debugFont = GetGameContexts()->debugFont;
 
-	debugFont->AddString(L"SceneA", SimpleMath::Vector2(0.0f, 0.0f));
+	debugFont.AddString(L"SceneA", SimpleMath::Vector2(0.0f, 0.0f));
 }
 
 // 描画処理
 void SceneA::Render()
 {
-	auto debugFont = GetGameContexts()->GetDebugFont();
-	auto states = GetGameContexts()->GetCommonStates();
+	auto& debugFont = GetGameContexts()->debugFont;
+	auto& states = GetGameContexts()->commonStates;
 
-	m_spriteBatch->Begin(SpriteSortMode_Deferred, states->NonPremultiplied());
+	m_spriteBatch->Begin(SpriteSortMode_Deferred, states.NonPremultiplied());
 
 	// スプライトの描画
 	m_spriteBatch->Draw(m_texture.Get(), SimpleMath::Vector2(100.0f, 100.0f));
@@ -57,7 +57,7 @@ void SceneA::Render()
 	m_spriteBatch->End();
 
 	// デバッグ用文字列の描画
-	debugFont->Render(states);
+	debugFont.Render(&states);
 }
 
 // 終了処理
@@ -68,8 +68,8 @@ void SceneA::Finalize()
 // デバイスに依存するリソースを作成する関数
 void SceneA::CreateDeviceDependentResources()
 {
-	auto device = GetGameContexts()->GetDeviceResources()->GetD3DDevice();
-	auto context = GetGameContexts()->GetDeviceResources()->GetD3DDeviceContext();
+	auto device = GetGameContexts()->deviceResources.GetD3DDevice();
+	auto context = GetGameContexts()->deviceResources.GetD3DDeviceContext();
 
 	// スプライトバッチの作成
 	m_spriteBatch = std::make_unique<SpriteBatch>(context);

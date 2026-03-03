@@ -8,9 +8,10 @@
 #include "StepTimer.h"
 
 #include <memory>
+#include <optional>
 
 #include "ImaseLib/SceneManager.h"
-#include "Scene/GameContexts.h"
+#include "GameContext.h"
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -81,10 +82,11 @@ private:
     // デバッグ用フォント
     std::unique_ptr<Imase::DebugFont> m_debugFont;
 
-    // シーンマネージャー
-    Imase::SceneManager<GameContexts> m_sceneManager;
-
     // ゲームコンテキスト
-    GameContexts m_gameContexts;
+    std::optional<GameContext> m_gameContext;
+
+    // シーンマネージャー
+    Imase::SceneManager<GameContext> m_sceneManager;
+
 
 };

@@ -9,9 +9,9 @@
 #pragma once
 
 #include "ImaseLib/SceneManager.h"
-#include "GameContexts.h"
+#include "GameContext.h"
 
-class SceneA : public Imase::Scene<GameContexts>
+class SceneA : public Imase::Scene<GameContext>
 {
 public:
 	
