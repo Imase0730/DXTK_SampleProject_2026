@@ -10,7 +10,7 @@
 #include <memory>
 
 #include "ImaseLib/SceneManager.h"
-#include "Scene/UserResources.h"
+#include "Scene/GameContexts.h"
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -82,9 +82,9 @@ private:
     std::unique_ptr<Imase::DebugFont> m_debugFont;
 
     // シーンマネージャー
-    Imase::SceneManager<UserResources> m_sceneManager;
+    Imase::SceneManager<GameContexts> m_sceneManager;
 
-    // ユーザー定義のリソース
-    UserResources m_userResources;
+    // ゲームコンテキスト
+    GameContexts m_gameContexts;
 
 };

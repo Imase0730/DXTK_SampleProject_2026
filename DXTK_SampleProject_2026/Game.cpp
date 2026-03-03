@@ -5,6 +5,8 @@
 #include "pch.h"
 #include "Game.h"
 
+#include "Scene/SceneA.h";
+
 extern void ExitGame() noexcept;
 
 using namespace DirectX;
@@ -17,7 +19,7 @@ Game::Game() noexcept(false)
     , m_states{}
     , m_debugFont{}
     , m_sceneManager{}
-    , m_userResources{}
+    , m_gameContexts{}
 {
     m_deviceResources = std::make_unique<DX::DeviceResources>();
     // TODO: Provide parameters for swapchain format, depth/stencil format, and backbuffer count.
@@ -43,6 +45,9 @@ void Game::Initialize(HWND window, int width, int height)
     m_timer.SetFixedTimeStep(true);
     m_timer.SetTargetElapsedSeconds(1.0 / 60);
     */
+
+    // 起動シーンの設定
+    m_sceneManager.SetScene<SceneA>();
 }
 
 #pragma region Frame Update
@@ -196,15 +201,15 @@ void Game::CreateDeviceDependentResources()
     m_states = std::make_unique<CommonStates>(device);
 
     // ユーザーリソースの設定
-    m_userResources.SetStepTimerStates(&m_timer);                   // <- StepTimer
-    m_userResources.SetDeviceResources(m_deviceResources.get());    // <- DeviceResources
-    m_userResources.SetKeyboardTracker(&m_keyboardTracker);         // <- KeyboardTracker
-    m_userResources.SetMouseButtonTracker(&m_mouseButtonTracker);   // <- MouseButtonTracker
-    m_userResources.SetCommonStates(m_states.get());                // <- CommonStates
-    m_userResources.SetDebugFont(m_debugFont.get());                // <- DebugFont
+    m_gameContexts.SetStepTimerStates(&m_timer);                   // <- StepTimer
+    m_gameContexts.SetDeviceResources(m_deviceResources.get());    // <- DeviceResources
+    m_gameContexts.SetKeyboardTracker(&m_keyboardTracker);         // <- KeyboardTracker
+    m_gameContexts.SetMouseButtonTracker(&m_mouseButtonTracker);   // <- MouseButtonTracker
+    m_gameContexts.SetCommonStates(m_states.get());                // <- CommonStates
+    m_gameContexts.SetDebugFont(m_debugFont.get());                // <- DebugFont
 
     // ユーザーリソースを設定
-    m_sceneManager.SetUserResources(&m_userResources);
+    m_sceneManager.SetGameContexts(&m_gameContexts);
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.

@@ -1,9 +1,9 @@
 //--------------------------------------------------------------------------------------
-// File: UserResources.h
+// File: GameContext.h
 //
-// シーンへ渡すユーザーリソースクラス
+// シーンへ渡すゲームコンテキストクラス
 //
-// Date: 2026.2.24
+// Date: 2026.3.3
 // Author: Hideyasu Imase
 //--------------------------------------------------------------------------------------
 #pragma once
@@ -13,7 +13,7 @@
 #include "ImaseLib/DebugFont.h"
 
 // 各シーンに渡す共通リソースを記述してください
-class UserResources
+class GameContexts
 {
 private:
 
@@ -38,7 +38,7 @@ private:
 public:
 
 	// コンストラクタ
-	UserResources()
+	GameContexts()
 		: m_timer{ nullptr }
 		, m_deviceResources{ nullptr }
 		, m_keyboardTracker{ nullptr }

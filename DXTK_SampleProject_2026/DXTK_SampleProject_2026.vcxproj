@@ -184,6 +184,9 @@
     <ClInclude Include="ImaseLib\DebugFont.h" />
     <ClInclude Include="ImaseLib\SceneManager.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Scene\SceneA.h" />
+    <ClInclude Include="Scene\SceneB.h" />
+    <ClInclude Include="Scene\GameContexts.h" />
     <ClInclude Include="StepTimer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +200,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Scene\SceneA.cpp" />
+    <ClCompile Include="Scene\SceneB.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

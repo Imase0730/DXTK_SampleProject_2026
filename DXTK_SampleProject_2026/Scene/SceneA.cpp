@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------------------------------------------
-// File: SampleScene.cpp
+// File: SceneA.cpp
 //
 // サンプルシーンクラス
 //
@@ -7,59 +7,69 @@
 // Author: Hideyasu Imase
 //--------------------------------------------------------------------------------------
 #include "pch.h"
-#include "SampleScene.h"
+#include "SceneA.h"
+#include "SceneB.h"
 
 using namespace DirectX;
 
 // コンストラクタ
-SampleScene::SampleScene()
+SceneA::SceneA()
 {
 }
 
 // 初期化
-void SampleScene::Initialize()
+void SceneA::Initialize()
 {
 	CreateDeviceDependentResources();
 	CreateWindowSizeDependentResources();
 }
 
 // 更新処理
-void SampleScene::Update(float elapsedTime)
+void SceneA::Update(float elapsedTime)
 {
 	elapsedTime;
 
-	auto debugFont = GetUserResources()->GetDebugFont();
+	Keyboard::KeyboardStateTracker* tracker = GetGameContexts()->GetKeyboardTracker();
 
-	debugFont->AddString(L"SampleScene", SimpleMath::Vector2(0.0f, 0.0f));
+	// スペースキーが押された
+	if (tracker->pressed.Space)
+	{
+		// 次のシーンへ
+		ChangeScene<SceneB>();
+	}
+
+	auto debugFont = GetGameContexts()->GetDebugFont();
+
+	debugFont->AddString(L"SceneA", SimpleMath::Vector2(0.0f, 0.0f));
 }
 
 // 描画処理
-void SampleScene::Render()
+void SceneA::Render()
 {
-	auto debugFont = GetUserResources()->GetDebugFont();
-	auto states = GetUserResources()->GetCommonStates();
+	auto debugFont = GetGameContexts()->GetDebugFont();
+	auto states = GetGameContexts()->GetCommonStates();
 
 	// デバッグ用文字列の描画
 	debugFont->Render(states);
 }
 
 // 終了処理
-void SampleScene::Finalize()
+void SceneA::Finalize()
 {
 }
 
 // デバイスに依存するリソースを作成する関数
-void SampleScene::CreateDeviceDependentResources()
+void SceneA::CreateDeviceDependentResources()
 {
 }
 
 // ウインドウサイズに依存するリソースを作成する関数
-void SampleScene::CreateWindowSizeDependentResources()
+void SceneA::CreateWindowSizeDependentResources()
 {
 }
 
 // デバイスロストした時に呼び出される関数
-void SampleScene::OnDeviceLost()
+void SceneA::OnDeviceLost()
 {
 	Finalize();
 }

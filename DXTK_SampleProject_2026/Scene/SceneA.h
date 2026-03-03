@@ -1,5 +1,5 @@
 //--------------------------------------------------------------------------------------
-// File: SampleScene.h
+// File: SceneA.h
 //
 // サンプルシーンクラス
 //
@@ -9,14 +9,14 @@
 #pragma once
 
 #include "ImaseLib/SceneManager.h"
-#include "UserResources.h"
+#include "GameContexts.h"
 
-class SampleScene : public Imase::Scene<UserResources>
+class SceneA : public Imase::Scene<GameContexts>
 {
 public:
 	
 	// コンストラクタ
-	SampleScene();
+	SceneA();
 
 	// 初期化
 	void Initialize() override;

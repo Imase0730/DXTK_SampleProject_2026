@@ -3,7 +3,7 @@
 //
 // シーンを管理するクラス
 //
-// Date: 2026.2.24
+// Date: 2026.3.3
 // Author: Hideyasu Imase
 //--------------------------------------------------------------------------------------
 #pragma once
@@ -67,8 +67,8 @@ namespace Imase
 		template <class U>
 		void ChangeScene();
 
-		// ユーザーが設定したリソース取得関数
-		T* GetUserResources();
+		// ゲームコンテキスト取得関数
+		T* GetGameContexts();
 
 	};
 
@@ -79,7 +79,7 @@ namespace Imase
 	private:
 
 		// 共通でアクセスしたいオブジェクトへのポインタ
-		T* m_userResources;
+		T* m_gameContexts;
 
 		// 実行中のシーンへのポインタ
 		Scene<T>* m_scene;
@@ -93,8 +93,8 @@ namespace Imase
 	public:
 
 		// コンストラクタ
-		SceneManager(T* userResources = nullptr)
-			: m_userResources(userResources)
+		SceneManager(T* gameContexts = nullptr)
+			: m_gameContexts(gameContexts)
 			, m_scene(nullptr)
 			, m_nextScene(nullptr)
 		{
@@ -126,11 +126,11 @@ namespace Imase
 		template <class U>
 		void SetNextScene();
 
-		// ユーザーリソース設定関数
-		void SetUserResources(T* userResources) { m_userResources = userResources; }
+		// ゲームコンテキスト設定関数
+		void SetGameContexts(T* gameContexts) { m_gameContexts = gameContexts; }
 
-		// ユーザーリソース取得関数
-		T* GetUserResources() { return m_userResources; }
+		// ゲームコンテキスト取得関数
+		T* GetGameContexts() { return m_gameContexts; }
 
 	};
 
@@ -142,13 +142,13 @@ namespace Imase
 		m_sceneManager->SetNextScene<U>();
 	}
 
-	// ユーザーが設定したリソース取得関数
+	// ユーザーが設定したゲームコンテキスト取得関数
 	template <class T>
-	T* Scene<T>::GetUserResources()
+	T* Scene<T>::GetGameContexts()
 	{
 		assert(m_sceneManager);
 
-		return m_sceneManager->GetUserResources();
+		return m_sceneManager->GetGameContexts();
 	}
 
 	// シーンの設定関数

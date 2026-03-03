@@ -1,22 +1,22 @@
 //--------------------------------------------------------------------------------------
-// File: SampleScene.h
+// File: SceneB.h
 //
 // サンプルシーンクラス
 //
-// Date: 2026.2.24
+// Date: 2026.3.3
 // Author: Hideyasu Imase
 //--------------------------------------------------------------------------------------
 #pragma once
 
 #include "ImaseLib/SceneManager.h"
-#include "UserResources.h"
+#include "GameContexts.h"
 
-class SampleScene : public Imase::Scene<UserResources>
+class SceneB : public Imase::Scene<GameContexts>
 {
 public:
 	
 	// コンストラクタ
-	SampleScene();
+	SceneB();
 
 	// 初期化
 	void Initialize() override;

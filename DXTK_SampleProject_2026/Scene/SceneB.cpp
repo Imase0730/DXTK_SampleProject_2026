@@ -1,65 +1,65 @@
 ﻿//--------------------------------------------------------------------------------------
-// File: SampleScene.cpp
+// File: SceneB.cpp
 //
 // サンプルシーンクラス
 //
-// Date: 2026.2.24
+// Date: 2026.3.3
 // Author: Hideyasu Imase
 //--------------------------------------------------------------------------------------
 #include "pch.h"
-#include "SampleScene.h"
+#include "SceneB.h"
 
 using namespace DirectX;
 
 // コンストラクタ
-SampleScene::SampleScene()
+SceneB::SceneB()
 {
 }
 
 // 初期化
-void SampleScene::Initialize()
+void SceneB::Initialize()
 {
 	CreateDeviceDependentResources();
 	CreateWindowSizeDependentResources();
 }
 
 // 更新処理
-void SampleScene::Update(float elapsedTime)
+void SceneB::Update(float elapsedTime)
 {
 	elapsedTime;
 
-	auto debugFont = GetUserResources()->GetDebugFont();
+	auto debugFont = GetGameContexts()->GetDebugFont();
 
-	debugFont->AddString(L"SampleScene", SimpleMath::Vector2(0.0f, 0.0f));
+	debugFont->AddString(L"SceneB", SimpleMath::Vector2(0.0f, 0.0f));
 }
 
 // 描画処理
-void SampleScene::Render()
+void SceneB::Render()
 {
-	auto debugFont = GetUserResources()->GetDebugFont();
-	auto states = GetUserResources()->GetCommonStates();
+	auto debugFont = GetGameContexts()->GetDebugFont();
+	auto states = GetGameContexts()->GetCommonStates();
 
 	// デバッグ用文字列の描画
 	debugFont->Render(states);
 }
 
 // 終了処理
-void SampleScene::Finalize()
+void SceneB::Finalize()
 {
 }
 
 // デバイスに依存するリソースを作成する関数
-void SampleScene::CreateDeviceDependentResources()
+void SceneB::CreateDeviceDependentResources()
 {
 }
 
 // ウインドウサイズに依存するリソースを作成する関数
-void SampleScene::CreateWindowSizeDependentResources()
+void SceneB::CreateWindowSizeDependentResources()
 {
 }
 
 // デバイスロストした時に呼び出される関数
-void SampleScene::OnDeviceLost()
+void SceneB::OnDeviceLost()
 {
 	Finalize();
 }
