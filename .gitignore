@@ -363,5 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # ただし 指定フォルダ内は無視しない
-!ResourceBuild/Models/
-!ResourceBuild/Textures/
+!ResourceBuild/Models/*
+!ResourceBuild/Textures/*
