@@ -8,13 +8,6 @@
 //--------------------------------------------------------------------------------------
 #pragma once
 
-// ESCキーで終了したい場合有効にしてください
-#define ESC_QUIT_ENABLE
-
-#ifdef ESC_QUIT_ENABLE
-#include "Keyboard.h"
-#endif
-
 namespace Imase
 {
 	template <class T>
@@ -32,22 +25,16 @@ namespace Imase
 	public:
 
 		// コンストラクタ
-		Scene() : m_sceneManager(nullptr) {}
+		Scene(SceneManager<T>* sceneManager) : m_sceneManager(sceneManager) {}
 
 		// デストラクタ
 		virtual ~Scene() = default;
-
-		// 初期化
-		virtual void Initialize() = 0;
 
 		// 更新
 		virtual void Update(float elapsedTime) = 0;
 
 		// 描画
 		virtual void Render() = 0;
-
-		// 終了処理
-		virtual void Finalize() = 0;
 
 		// デバイスに依存するリソースを作成する関数
 		virtual void CreateDeviceDependentResources() {}
@@ -59,9 +46,6 @@ namespace Imase
 		virtual void OnDeviceLost() {}
 
 	public:
-
-		// シーンマネージャー設定関数
-		void SetSceneManager(SceneManager<T>* sceneManager) { m_sceneManager = sceneManager; }
 
 		// シーンの切り替え関数
 		template <class U>
@@ -82,13 +66,10 @@ namespace Imase
 		T* m_gameContexts;
 
 		// 実行中のシーンへのポインタ
-		Scene<T>* m_scene;
+		std::unique_ptr<Scene<T>> m_scene;
 
 		// 次のシーンへのポインタ
-		Scene<T>* m_nextScene;
-
-		// シーン削除関数
-		void DeleteScene();
+		std::unique_ptr<Scene<T>> m_nextScene;
 
 	public:
 
@@ -101,7 +82,7 @@ namespace Imase
 		};
 
 		// デストラクタ
-		virtual ~SceneManager() { DeleteScene(); };
+		virtual ~SceneManager() = default;
 
 		// 更新
 		void Update(float elapsedTime);
@@ -156,19 +137,8 @@ namespace Imase
 	template <class U>
 	void SceneManager<T>::SetScene()
 	{
-		// シーンを削除
-		DeleteScene();
-
-		assert(m_scene == nullptr);
-
 		// シーンを生成
-		m_scene = new U;
-
-		// シーンにシーンマネージャーへのポインタを設定
-		m_scene->SetSceneManager(this);
-
-		// シーンの初期化処理
-		m_scene->Initialize();
+		m_scene = std::make_unique<U>(this);
 	}
 
 	// シーンの設定関数
@@ -179,7 +149,7 @@ namespace Imase
 		if (!m_nextScene)
 		{
 			// シーンを生成
-			m_nextScene = new U;
+			m_nextScene = std::make_unique<U>(this);
 		}
 	}
 
@@ -187,34 +157,15 @@ namespace Imase
 	template <class T>
 	void SceneManager<T>::Update(float elapsedTime)
 	{
-#ifdef ESC_QUIT_ENABLE
-		// ESCキーで終了
-		auto kb = DirectX::Keyboard::Get().GetState();
-		if (kb.Escape) PostQuitMessage(0);
-#endif
-
 		// シーンの切り替え処理
 		if (m_nextScene)
 		{
-			DeleteScene();
-
-			assert(m_scene == nullptr);
-
 			// シーンを切り替え
-			m_scene = m_nextScene;
-
-			m_nextScene = nullptr;
-
-			// シーンにシーンマネージャーへのポインタを設定
-			m_scene->SetSceneManager(this);
-
-			// シーンの初期化処理
-			m_scene->Initialize();
+			m_scene = std::move(m_nextScene);
 		}
 
 		// シーンの更新
 		if (m_scene) m_scene->Update(elapsedTime);
-
 	}
 
 	// 描画関数
@@ -244,20 +195,6 @@ namespace Imase
 	void SceneManager<T>::OnDeviceLost()
 	{
 		if (m_scene) m_scene->OnDeviceLost();
-	}
-
-	// シーンの削除関数
-	template <class T>
-	void SceneManager<T>::DeleteScene()
-	{
-		if (m_scene)
-		{
-			m_scene->Finalize();
-
-			delete m_scene;
-
-			m_scene = nullptr;
-		}
 	}
 
 }

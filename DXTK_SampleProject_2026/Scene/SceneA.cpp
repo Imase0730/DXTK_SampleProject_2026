@@ -13,12 +13,8 @@
 using namespace DirectX;
 
 // コンストラクタ
-SceneA::SceneA()
-{
-}
-
-// 初期化
-void SceneA::Initialize()
+SceneA::SceneA(Imase::SceneManager<GameContext>* sceneManager)
+	: Scene(sceneManager)
 {
 	CreateDeviceDependentResources();
 	CreateWindowSizeDependentResources();
@@ -60,11 +56,6 @@ void SceneA::Render()
 	debugFont.Render(&states);
 }
 
-// 終了処理
-void SceneA::Finalize()
-{
-}
-
 // デバイスに依存するリソースを作成する関数
 void SceneA::CreateDeviceDependentResources()
 {
@@ -89,7 +80,6 @@ void SceneA::CreateWindowSizeDependentResources()
 // デバイスロストした時に呼び出される関数
 void SceneA::OnDeviceLost()
 {
-	Finalize();
 }
 
 

@@ -8,8 +8,8 @@
 //--------------------------------------------------------------------------------------
 #pragma once
 
-#include "StepTimer.h"
-#include "DeviceResources.h"
+#include "Common/StepTimer.h"
+#include "Common/DeviceResources.h"
 #include "ImaseLib/DebugFont.h"
 
 // 各シーンに渡す共通リソースを記述してください

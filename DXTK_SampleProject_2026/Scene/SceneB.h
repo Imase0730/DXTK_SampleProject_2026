@@ -16,19 +16,13 @@ class SceneB : public Imase::Scene<GameContext>
 public:
 	
 	// コンストラクタ
-	SceneB();
-
-	// 初期化
-	void Initialize() override;
+	SceneB(Imase::SceneManager<GameContext>* sceneManager);
 
 	// 更新処理
 	void Update(float elapsedTime) override;
 
 	// 描画処理
 	void Render() override;
-
-	// 終了処理
-	void Finalize() override;
 
 	// デバイスに依存するリソースを作成する関数
 	void CreateDeviceDependentResources() override;

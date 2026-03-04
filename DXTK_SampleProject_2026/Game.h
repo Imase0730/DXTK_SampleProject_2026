@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "DeviceResources.h"
-#include "StepTimer.h"
+#include "Common/DeviceResources.h"
+#include "Common/StepTimer.h"
 
 #include <memory>
 #include <optional>

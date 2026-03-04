@@ -8,16 +8,13 @@
 //--------------------------------------------------------------------------------------
 #include "pch.h"
 #include "SceneB.h"
+#include "SceneA.h"
 
 using namespace DirectX;
 
 // コンストラクタ
-SceneB::SceneB()
-{
-}
-
-// 初期化
-void SceneB::Initialize()
+SceneB::SceneB(Imase::SceneManager<GameContext>* sceneManager)
+	: Scene(sceneManager)
 {
 	CreateDeviceDependentResources();
 	CreateWindowSizeDependentResources();
@@ -27,6 +24,15 @@ void SceneB::Initialize()
 void SceneB::Update(float elapsedTime)
 {
 	elapsedTime;
+
+	Keyboard::KeyboardStateTracker& tracker = GetGameContexts()->keyboardTracker;
+
+	// スペースキーが押された
+	if (tracker.pressed.Space)
+	{
+		// 次のシーンへ
+		ChangeScene<SceneA>();
+	}
 
 	auto& debugFont = GetGameContexts()->debugFont;
 
@@ -59,11 +65,6 @@ void SceneB::Render()
 	debugFont.Render(&states);
 }
 
-// 終了処理
-void SceneB::Finalize()
-{
-}
-
 // デバイスに依存するリソースを作成する関数
 void SceneB::CreateDeviceDependentResources()
 {
@@ -83,7 +84,6 @@ void SceneB::CreateWindowSizeDependentResources()
 // デバイスロストした時に呼び出される関数
 void SceneB::OnDeviceLost()
 {
-	Finalize();
 }
 
 

@@ -180,7 +180,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="DeviceResources.h" />
+    <ClInclude Include="Common\DeviceResources.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameContext.h" />
     <ClInclude Include="ImaseLib\DebugFont.h" />
@@ -188,10 +188,10 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Scene\SceneA.h" />
     <ClInclude Include="Scene\SceneB.h" />
-    <ClInclude Include="StepTimer.h" />
+    <ClInclude Include="Common\StepTimer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DeviceResources.cpp" />
+    <ClCompile Include="Common\DeviceResources.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="ImaseLib\DebugFont.cpp" />
     <ClCompile Include="Main.cpp" />
