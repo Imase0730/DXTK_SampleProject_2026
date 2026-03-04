@@ -103,6 +103,9 @@ void Game::Render()
     // シーンの描画
     m_sceneManager.Render();
 
+    // デバッグ用文字列の描画
+    m_debugFont->Render(m_states.get());
+
     m_deviceResources->PIXEndEvent();
 
     // Show the new frame.

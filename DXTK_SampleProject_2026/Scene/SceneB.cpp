@@ -60,9 +60,6 @@ void SceneB::Render()
 		100.0f
 	);
 	m_model->Draw(context, states, world, view, projection);
-
-	// デバッグ用文字列の描画
-	debugFont.Render(&states);
 }
 
 // デバイスに依存するリソースを作成する関数

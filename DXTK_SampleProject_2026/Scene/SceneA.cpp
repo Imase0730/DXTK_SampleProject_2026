@@ -51,9 +51,6 @@ void SceneA::Render()
 	m_spriteBatch->Draw(m_texture.Get(), SimpleMath::Vector2(100.0f, 100.0f));
 
 	m_spriteBatch->End();
-
-	// デバッグ用文字列の描画
-	debugFont.Render(&states);
 }
 
 // デバイスに依存するリソースを作成する関数
