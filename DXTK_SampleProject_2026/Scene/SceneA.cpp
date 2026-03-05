@@ -42,7 +42,6 @@ void SceneA::Update(float elapsedTime)
 // 描画処理
 void SceneA::Render()
 {
-	auto& debugFont = GetGameContexts()->debugFont;
 	auto& states = GetGameContexts()->commonStates;
 
 	m_spriteBatch->Begin(SpriteSortMode_Deferred, states.NonPremultiplied());

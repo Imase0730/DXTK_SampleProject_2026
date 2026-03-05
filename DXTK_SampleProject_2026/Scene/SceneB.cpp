@@ -43,7 +43,6 @@ void SceneB::Update(float elapsedTime)
 void SceneB::Render()
 {
 	auto context = GetGameContexts()->deviceResources.GetD3DDeviceContext();
-	auto& debugFont = GetGameContexts()->debugFont;
 	auto& states = GetGameContexts()->commonStates;
 
 	// モデルの描画
