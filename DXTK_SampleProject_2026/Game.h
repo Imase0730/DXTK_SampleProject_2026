@@ -70,6 +70,12 @@ private:
 
 private:
 
+    // ビュー行列
+    DirectX::SimpleMath::Matrix m_view;
+
+    // プロジェクション行列
+    DirectX::SimpleMath::Matrix m_projection;
+
     // キーボードトラッカー
     DirectX::Keyboard::KeyboardStateTracker m_keyboardTracker;
 
@@ -87,6 +93,5 @@ private:
 
     // シーンマネージャー
     Imase::SceneManager<GameContext> m_sceneManager;
-
 
 };

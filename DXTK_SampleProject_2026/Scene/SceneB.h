@@ -9,6 +9,8 @@
 #pragma once
 
 #include "ImaseLib/SceneManager.h"
+#include "ImaseLib/DebugCamera.h"
+#include "ImaseLib/GridFloor.h"
 #include "GameContext.h"
 
 class SceneB : public Imase::Scene<GameContext>
@@ -37,6 +39,12 @@ private:
 
 	// モデル
 	std::unique_ptr<DirectX::Model> m_model;
+
+	// デバッグカメラ
+	std::unique_ptr<Imase::DebugCamera> m_debugCamera;
+
+	// グリッドフロア
+	std::unique_ptr<Imase::GridFloor> m_gridFloor;
 
 };
 

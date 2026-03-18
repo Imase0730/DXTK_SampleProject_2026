@@ -94,3 +94,9 @@ namespace DX
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
 #include "Model.h"
+#include "PrimitiveBatch.h"
+#include "VertexTypes.h"
+#include "DirectXHelpers.h"
+
+// DirectXTK_Utilities
+#include "DirectXTK_Utilities/DebugDraw.h"

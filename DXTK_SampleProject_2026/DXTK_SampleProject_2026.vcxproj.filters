@@ -14,6 +14,9 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{ad92d2b2-c095-4615-9710-2b96d8a0bb5c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DirectXTK_Utilities">
+      <UniqueIdentifier>{b9855007-75dd-44b7-bb00-1e824ff358fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -37,6 +40,15 @@
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="GameContext.h" />
+    <ClInclude Include="ImaseLib\DebugCamera.h">
+      <Filter>ImaseLib</Filter>
+    </ClInclude>
+    <ClInclude Include="ImaseLib\GridFloor.h">
+      <Filter>ImaseLib</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXTK_Utilities\DebugDraw.h">
+      <Filter>DirectXTK_Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -53,6 +65,15 @@
     </ClCompile>
     <ClCompile Include="Scene\SceneB.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ImaseLib\DebugCamera.cpp">
+      <Filter>ImaseLib</Filter>
+    </ClCompile>
+    <ClCompile Include="ImaseLib\GridFloor.cpp">
+      <Filter>ImaseLib</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXTK_Utilities\DebugDraw.cpp">
+      <Filter>DirectXTK_Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

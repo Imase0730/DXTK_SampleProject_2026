@@ -11,6 +11,8 @@
 #include "Common/StepTimer.h"
 #include "Common/DeviceResources.h"
 #include "ImaseLib/DebugFont.h"
+#include "ImaseLib/DebugCamera.h"
+#include "ImaseLib/GridFloor.h"
 
 // 各シーンに渡す共通リソースを記述してください
 struct GameContext
@@ -32,5 +34,11 @@ struct GameContext
 
 	// デバッグ用文字列表示へのポインタ
 	Imase::DebugFont& debugFont;
+
+	// ビュー行列
+	DirectX::SimpleMath::Matrix& view;
+
+	// プロジェクション行列
+	DirectX::SimpleMath::Matrix& projection;
 };
 

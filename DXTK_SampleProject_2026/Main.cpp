@@ -324,6 +324,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_XBUTTONUP:
     case WM_MOUSEHOVER:
         Mouse::ProcessMessage(message, wParam, lParam);
+        break;
 
     default:
         break;

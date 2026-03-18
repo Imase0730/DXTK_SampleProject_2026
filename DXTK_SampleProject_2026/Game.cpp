@@ -210,7 +210,8 @@ void Game::CreateDeviceDependentResources()
         m_keyboardTracker,       // <- KeyboardTracker
         m_mouseButtonTracker,    // <- MouseButtonTracker
         *m_states,               // <- CommonStates
-        *m_debugFont             // <- DebugFont
+        *m_debugFont,            // <- DebugFont
+        m_view, m_projection
     );
 
     // ゲームコンテキストを設定
