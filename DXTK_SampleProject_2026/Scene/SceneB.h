@@ -12,28 +12,20 @@
 #include "ImaseLib/DebugCamera.h"
 #include "ImaseLib/GridFloor.h"
 #include "GameContext.h"
+#include "SceneId.h"
 
-class SceneB : public Imase::Scene<GameContext>
+class SceneB : public Imase::SceneBase<SceneId, GameContext>
 {
 public:
-	
-	// コンストラクタ
-	SceneB(Imase::SceneManager<GameContext>* sceneManager);
 
-	// 更新処理
-	void Update(float elapsedTime) override;
+	// 更新
+	void Update(Imase::ISceneController<SceneId>& sceneController, GameContext& gameContext) override;
 
-	// 描画処理
-	void Render() override;
+	// 描画
+	void Render(GameContext& gameContext) const override;
 
-	// デバイスに依存するリソースを作成する関数
-	void CreateDeviceDependentResources() override;
-
-	// ウインドウサイズに依存するリソースを作成する関数
-	void CreateWindowSizeDependentResources() override;
-
-	// デバイスロストした時に呼び出される関数
-	void OnDeviceLost() override;
+	// シーン切り替え時に呼び出される関数
+	void OnEnter(GameContext& gameContext) override;
 
 private:
 

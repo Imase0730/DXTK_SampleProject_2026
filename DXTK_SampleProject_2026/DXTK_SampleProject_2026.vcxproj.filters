@@ -39,7 +39,6 @@
     <ClInclude Include="Scene\SceneB.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="GameContext.h" />
     <ClInclude Include="ImaseLib\DebugCamera.h">
       <Filter>ImaseLib</Filter>
     </ClInclude>
@@ -48,6 +47,15 @@
     </ClInclude>
     <ClInclude Include="DirectXTK_Utilities\DebugDraw.h">
       <Filter>DirectXTK_Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\GameContext.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneFactory.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneId.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="DirectXTK_Utilities\DebugDraw.cpp">
       <Filter>DirectXTK_Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneFactory.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

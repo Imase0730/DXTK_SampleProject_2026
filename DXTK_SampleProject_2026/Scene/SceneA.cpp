@@ -12,37 +12,31 @@
 
 using namespace DirectX;
 
-// コンストラクタ
-SceneA::SceneA(Imase::SceneManager<GameContext>* sceneManager)
-	: Scene(sceneManager)
+// 更新
+void SceneA::Update(Imase::ISceneController<SceneId>& sceneController, GameContext& gameContext)
 {
-	CreateDeviceDependentResources();
-	CreateWindowSizeDependentResources();
-}
+	float elapsedTime = float(gameContext.timer.GetElapsedSeconds());
 
-// 更新処理
-void SceneA::Update(float elapsedTime)
-{
 	elapsedTime;
 
-	Keyboard::KeyboardStateTracker& tracker = GetGameContexts()->keyboardTracker;
+	Keyboard::KeyboardStateTracker& tracker = gameContext.keyboardTracker;
 
 	// スペースキーが押された
 	if (tracker.pressed.Space)
 	{
 		// 次のシーンへ
-		ChangeScene<SceneB>();
+		sceneController.RequestSwitch(SceneId::SceneB);
 	}
 
-	auto& debugFont = GetGameContexts()->debugFont;
+	auto& debugFont = gameContext.debugFont;
 
 	debugFont.AddString(L"SceneA", SimpleMath::Vector2(0.0f, 0.0f));
 }
 
-// 描画処理
-void SceneA::Render()
+// 描画
+void SceneA::Render(GameContext& gameContext) const
 {
-	auto& states = GetGameContexts()->commonStates;
+	auto& states = gameContext.commonStates;
 
 	m_spriteBatch->Begin(SpriteSortMode_Deferred, states.NonPremultiplied());
 
@@ -52,11 +46,11 @@ void SceneA::Render()
 	m_spriteBatch->End();
 }
 
-// デバイスに依存するリソースを作成する関数
-void SceneA::CreateDeviceDependentResources()
+// シーン切り替え時に呼び出される関数
+void SceneA::OnEnter(GameContext& gameContext)
 {
-	auto device = GetGameContexts()->deviceResources.GetD3DDevice();
-	auto context = GetGameContexts()->deviceResources.GetD3DDeviceContext();
+	auto device = gameContext.deviceResources.GetD3DDevice();
+	auto context = gameContext.deviceResources.GetD3DDeviceContext();
 
 	// スプライトバッチの作成
 	m_spriteBatch = std::make_unique<SpriteBatch>(context);
@@ -65,17 +59,4 @@ void SceneA::CreateDeviceDependentResources()
 	DX::ThrowIfFailed(
 		CreateDDSTextureFromFile(device, L"Resources/Textures/ShootingGame.dds", nullptr, m_texture.ReleaseAndGetAddressOf())
 	);
-
 }
-
-// ウインドウサイズに依存するリソースを作成する関数
-void SceneA::CreateWindowSizeDependentResources()
-{
-}
-
-// デバイスロストした時に呼び出される関数
-void SceneA::OnDeviceLost()
-{
-}
-
-

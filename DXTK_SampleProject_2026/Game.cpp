@@ -4,8 +4,7 @@
 
 #include "pch.h"
 #include "Game.h"
-
-#include "Scene/SceneA.h"
+#include "Scene/SceneFactory.h"
 
 extern void ExitGame() noexcept;
 
@@ -19,7 +18,7 @@ Game::Game() noexcept(false)
     , m_states{}
     , m_debugFont{}
     , m_gameContext{}
-    , m_sceneManager{}
+    , m_sceneManager{ CreateScene }
 {
     m_deviceResources = std::make_unique<DX::DeviceResources>();
     // TODO: Provide parameters for swapchain format, depth/stencil format, and backbuffer count.
@@ -46,8 +45,19 @@ void Game::Initialize(HWND window, int width, int height)
     m_timer.SetTargetElapsedSeconds(1.0 / 60);
     */
 
+    // ゲームコンテキストの設定
+    m_gameContext.emplace(
+        m_timer,                 // <- StepTimer
+        *m_deviceResources,      // <- DeviceResources
+        m_keyboardTracker,       // <- KeyboardTracker
+        m_mouseButtonTracker,    // <- MouseButtonTracker
+        *m_states,               // <- CommonStates
+        *m_debugFont,            // <- DebugFont
+        m_view, m_projection
+    );
+
     // 起動シーンの設定
-    m_sceneManager.SetScene<SceneA>();
+    m_sceneManager.SetFirstScene(SceneId::SceneA, *m_gameContext);
 }
 
 #pragma region Frame Update
@@ -68,6 +78,7 @@ void Game::Update(DX::StepTimer const& timer)
     float elapsedTime = float(timer.GetElapsedSeconds());
 
     // TODO: Add your game logic here.
+    elapsedTime;
 
     // キーボードトラッカーの更新
     auto keyboard = Keyboard::Get().GetState();
@@ -78,7 +89,7 @@ void Game::Update(DX::StepTimer const& timer)
     m_mouseButtonTracker.Update(mouse);
 
     // シーンの更新
-    m_sceneManager.Update(elapsedTime);
+    m_sceneManager.Update(*m_gameContext);
 }
 #pragma endregion
 
@@ -101,7 +112,7 @@ void Game::Render()
     context;
 
     // シーンの描画
-    m_sceneManager.Render();
+    m_sceneManager.Render(*m_gameContext);
 
     // デバッグ用文字列の描画
     m_debugFont->Render(m_states.get());
@@ -202,33 +213,23 @@ void Game::CreateDeviceDependentResources()
 
     // コモンステートの作成
     m_states = std::make_unique<CommonStates>(device);
-
-    // ゲームコンテキストの設定
-    m_gameContext.emplace(
-        m_timer,                 // <- StepTimer
-        *m_deviceResources,      // <- DeviceResources
-        m_keyboardTracker,       // <- KeyboardTracker
-        m_mouseButtonTracker,    // <- MouseButtonTracker
-        *m_states,               // <- CommonStates
-        *m_debugFont,            // <- DebugFont
-        m_view, m_projection
-    );
-
-    // ゲームコンテキストを設定
-    m_sceneManager.SetGameContexts(&m_gameContext.value());
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
 void Game::CreateWindowSizeDependentResources()
 {
     // TODO: Initialize windows-size dependent objects here.
-    m_sceneManager.CreateWindowSizeDependentResources();
+    if (!m_gameContext)
+    {
+        return;
+    }
+    m_sceneManager.OnWindowSizeChanged(*m_gameContext);
 }
 
 void Game::OnDeviceLost()
 {
     // TODO: Add Direct3D resource cleanup here.
-    m_sceneManager.OnDeviceLost();
+    m_sceneManager.OnDeviceLost(*m_gameContext);
 }
 
 void Game::OnDeviceRestored()
@@ -236,5 +237,7 @@ void Game::OnDeviceRestored()
     CreateDeviceDependentResources();
 
     CreateWindowSizeDependentResources();
+
+    m_sceneManager.OnDeviceRestored(*m_gameContext);
 }
 #pragma endregion

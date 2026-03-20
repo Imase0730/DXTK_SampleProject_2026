@@ -40,5 +40,26 @@ struct GameContext
 
 	// プロジェクション行列
 	DirectX::SimpleMath::Matrix& projection;
+
+    // コンストラクタ
+    GameContext(
+        DX::StepTimer& timer,
+        DX::DeviceResources& deviceResources,
+        DirectX::Keyboard::KeyboardStateTracker& keyboardTracker,
+        DirectX::Mouse::ButtonStateTracker& mouseButtonTracker,
+        DirectX::CommonStates& commonStates,
+        Imase::DebugFont& debugFont,
+        DirectX::SimpleMath::Matrix& view,
+        DirectX::SimpleMath::Matrix& projection)
+        : timer(timer)
+        , deviceResources(deviceResources)
+        , keyboardTracker(keyboardTracker)
+        , mouseButtonTracker(mouseButtonTracker)
+        , commonStates(commonStates)
+        , debugFont(debugFont)
+        , view(view)
+        , projection(projection)
+    {
+    }
 };
 

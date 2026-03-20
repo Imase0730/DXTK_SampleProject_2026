@@ -11,7 +11,8 @@
 #include <optional>
 
 #include "ImaseLib/SceneManager.h"
-#include "GameContext.h"
+#include "Scene/GameContext.h"
+#include "Scene/SceneId.h"
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -92,6 +93,6 @@ private:
     std::optional<GameContext> m_gameContext;
 
     // シーンマネージャー
-    Imase::SceneManager<GameContext> m_sceneManager;
+    Imase::SceneManager<SceneId, GameContext> m_sceneManager;
 
 };

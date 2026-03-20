@@ -183,15 +183,17 @@
     <ClInclude Include="Common\DeviceResources.h" />
     <ClInclude Include="DirectXTK_Utilities\DebugDraw.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameContext.h" />
     <ClInclude Include="ImaseLib\DebugCamera.h" />
     <ClInclude Include="ImaseLib\DebugFont.h" />
     <ClInclude Include="ImaseLib\GridFloor.h" />
     <ClInclude Include="ImaseLib\SceneManager.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Scene\GameContext.h" />
     <ClInclude Include="Scene\SceneA.h" />
     <ClInclude Include="Scene\SceneB.h" />
     <ClInclude Include="Common\StepTimer.h" />
+    <ClInclude Include="Scene\SceneFactory.h" />
+    <ClInclude Include="Scene\SceneId.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Common\DeviceResources.cpp" />
@@ -209,6 +211,7 @@
     </ClCompile>
     <ClCompile Include="Scene\SceneA.cpp" />
     <ClCompile Include="Scene\SceneB.cpp" />
+    <ClCompile Include="Scene\SceneFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

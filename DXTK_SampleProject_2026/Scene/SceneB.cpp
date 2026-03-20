@@ -12,32 +12,23 @@
 
 using namespace DirectX;
 
-// コンストラクタ
-SceneB::SceneB(Imase::SceneManager<GameContext>* sceneManager)
-	: Scene(sceneManager)
+// 更新
+void SceneB::Update(Imase::ISceneController<SceneId>& sceneController, GameContext& gameContext)
 {
-	CreateDeviceDependentResources();
-	CreateWindowSizeDependentResources();
+	float elapsedTime = float(gameContext.timer.GetElapsedSeconds());
 
-	// デバッグ用カメラの作成
-	m_debugCamera = std::make_unique<Imase::DebugCamera>(1280, 720);
-}
-
-// 更新処理
-void SceneB::Update(float elapsedTime)
-{
 	elapsedTime;
 
-	Keyboard::KeyboardStateTracker& tracker = GetGameContexts()->keyboardTracker;
+	Keyboard::KeyboardStateTracker& tracker = gameContext.keyboardTracker;
 
 	// スペースキーが押された
 	if (tracker.pressed.Space)
 	{
 		// 次のシーンへ
-		ChangeScene<SceneA>();
+		sceneController.RequestSwitch(SceneId::SceneA);
 	}
 
-	auto& debugFont = GetGameContexts()->debugFont;
+	auto& debugFont = gameContext.debugFont;
 
 	debugFont.AddString(L"SceneB", SimpleMath::Vector2(0.0f, 0.0f));
 
@@ -45,11 +36,11 @@ void SceneB::Update(float elapsedTime)
 	m_debugCamera->Update();
 }
 
-// 描画処理
-void SceneB::Render()
+// 描画
+void SceneB::Render(GameContext& gameContext) const
 {
-	auto context = GetGameContexts()->deviceResources.GetD3DDeviceContext();
-	auto& states = GetGameContexts()->commonStates;
+	auto context = gameContext.deviceResources.GetD3DDeviceContext();
+	auto& states = gameContext.commonStates;
 
 	// モデルの描画
 	SimpleMath::Matrix world;
@@ -66,11 +57,13 @@ void SceneB::Render()
 	m_gridFloor->Render(context, view, projection);
 }
 
-// デバイスに依存するリソースを作成する関数
-void SceneB::CreateDeviceDependentResources()
+// シーン切り替え時に呼び出される関数
+void SceneB::OnEnter(GameContext& gameContext)
 {
-	auto device = GetGameContexts()->deviceResources.GetD3DDevice();
-	auto context = GetGameContexts()->deviceResources.GetD3DDeviceContext();
+	m_debugCamera = std::make_unique<Imase::DebugCamera>(1280, 720);
+
+	auto device = gameContext.deviceResources.GetD3DDevice();
+	auto context = gameContext.deviceResources.GetD3DDeviceContext();
 
 	//	モデルのロード
 	EffectFactory fx(device);
@@ -78,17 +71,5 @@ void SceneB::CreateDeviceDependentResources()
 	m_model = Model::CreateFromCMO(device, L"Resources/Models/Monkey.cmo", fx);
 
 	// グリッドフロアの作成
-	m_gridFloor = std::make_unique<Imase::GridFloor>(device, context, &GetGameContexts()->commonStates);
+	m_gridFloor = std::make_unique<Imase::GridFloor>(device, context, &gameContext.commonStates);
 }
-
-// ウインドウサイズに依存するリソースを作成する関数
-void SceneB::CreateWindowSizeDependentResources()
-{
-}
-
-// デバイスロストした時に呼び出される関数
-void SceneB::OnDeviceLost()
-{
-}
-
-
