@@ -192,7 +192,6 @@
     <ClInclude Include="Scene\SceneA.h" />
     <ClInclude Include="Scene\SceneB.h" />
     <ClInclude Include="Common\StepTimer.h" />
-    <ClInclude Include="Scene\SceneFactory.h" />
     <ClInclude Include="Scene\SceneId.h" />
   </ItemGroup>
   <ItemGroup>
@@ -211,7 +210,6 @@
     </ClCompile>
     <ClCompile Include="Scene\SceneA.cpp" />
     <ClCompile Include="Scene\SceneB.cpp" />
-    <ClCompile Include="Scene\SceneFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

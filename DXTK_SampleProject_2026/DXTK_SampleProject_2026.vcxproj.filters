@@ -51,9 +51,6 @@
     <ClInclude Include="Scene\GameContext.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\SceneFactory.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\SceneId.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -82,9 +79,6 @@
     </ClCompile>
     <ClCompile Include="DirectXTK_Utilities\DebugDraw.cpp">
       <Filter>DirectXTK_Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\SceneFactory.cpp">
-      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

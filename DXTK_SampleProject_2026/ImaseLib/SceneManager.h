@@ -12,6 +12,7 @@
 #include <optional>
 #include <cassert>
 #include <functional>
+#include <unordered_map>
 
 namespace Imase
 {
@@ -69,8 +70,8 @@ namespace Imase
 	template <class TSceneKey, class TContext>
 	class SceneManager final : public ISceneController<TSceneKey>
 	{
-		// SceneFactoryは、SceneIdをもらって、対応するシーンをunique_ptrで返す関数
-		using SceneFactory = std::function<ScenePtr<TSceneKey, TContext>(const TSceneKey&)>;
+		// SceneFactoryは、対応するシーンをunique_ptrで返す関数
+		using SceneFactory = std::function<ScenePtr<TSceneKey, TContext>()>;
 
 		// シーンマネージャーへの命令
 		enum class SceneCommand
@@ -81,8 +82,8 @@ namespace Imase
 			Pop			// シーンのポップ
 		};
 
-		// シーンを作成する関数
-		SceneFactory m_sceneFactory;
+		// シーン生成テーブル
+		std::unordered_map<TSceneKey, SceneFactory> m_sceneFactories;
 
 		// 作成されたシーンのスタック
 		std::vector<ScenePtr<TSceneKey, TContext>> m_sceneStack;
@@ -95,10 +96,19 @@ namespace Imase
 
 	public:
 
-		// 引数にシーンを作成する関数を渡す
-		explicit SceneManager(SceneFactory sceneFactory)
-			: m_sceneFactory(sceneFactory)
+		// コンストラクタ
+		SceneManager() = default;
+		
+		// シーンの登録
+		template <class TScene>
+		requires std::derived_from<TScene, SceneBase<TSceneKey, TContext>>	// <- SceneBaseを継承したクラスか？
+		void RegisterScene(const TSceneKey& key)
 		{
+			auto [it, inserted] = m_sceneFactories.emplace(key, []()
+				{
+					return std::make_unique<TScene>();
+				});
+			assert(inserted && "同じシーンキーが既に登録されています");
 		}
 
 		// 更新
@@ -128,7 +138,7 @@ namespace Imase
 		{
 			assert(m_sceneStack.empty() && "SetFirstScene() は1回だけ呼び出すことができます");
 
-			auto scene = m_sceneFactory(key);
+			auto scene = CreateScene(key);
 			assert(scene && "ファクトリがnullptrを返却しました");
 
 			m_sceneStack.push_back(std::move(scene));
@@ -155,7 +165,6 @@ namespace Imase
 		void RequestPop() override
 		{
 			ValidateRequest();
-			assert(m_sceneStack.size() > 1 && "シーンスタックを空にすることはできません");
 			m_nextCommand = SceneCommand::Pop;
 		}
 
@@ -188,6 +197,18 @@ namespace Imase
 
 	private:
 
+		// シーンの生成関数
+		ScenePtr<TSceneKey, TContext> CreateScene(const TSceneKey& key)
+		{
+			auto it = m_sceneFactories.find(key);
+			if (it == m_sceneFactories.end())
+			{
+				assert(false && "未登録のシーンキーです");
+				return nullptr;
+			}
+			return it->second();
+		}
+
 		// 同一フレーム内で遷移リクエストは１回だけなのでチェックする関数
 		void ValidateRequest() const
 		{
@@ -219,7 +240,9 @@ namespace Imase
 		// シーンの切り替え処理
 		void ApplySwitch(TContext& context)
 		{
-			auto nextScene = m_sceneFactory(*m_nextSceneKey);
+			assert(m_nextSceneKey.has_value() && "シーンキーが設定されていません");
+
+			auto nextScene = CreateScene(*m_nextSceneKey);
 			assert(nextScene && "ファクトリがnullptrを返却しました");
 			m_sceneStack.back()->OnExit(context);
 			m_sceneStack.back() = std::move(nextScene);
@@ -229,7 +252,9 @@ namespace Imase
 		// シーンのプッシュ処理
 		void ApplyPush(TContext& context)
 		{
-			auto nextScene = m_sceneFactory(*m_nextSceneKey);
+			assert(m_nextSceneKey.has_value() && "シーンキーが設定されていません");
+
+			auto nextScene = CreateScene(*m_nextSceneKey);
 			assert(nextScene && "ファクトリがnullptrを返却しました");
 			m_sceneStack.back()->OnSuspend(context);
 			m_sceneStack.push_back(std::move(nextScene));
@@ -239,6 +264,8 @@ namespace Imase
 		// シーンのポップ処理
 		void ApplyPop(TContext& context)
 		{
+			assert(m_sceneStack.size() > 1 && "シーンスタックを空にすることはできません");
+
 			m_sceneStack.back()->OnExit(context);
 			m_sceneStack.pop_back();
 			m_sceneStack.back()->OnResume(context);

@@ -4,7 +4,9 @@
 
 #include "pch.h"
 #include "Game.h"
-#include "Scene/SceneFactory.h"
+#include "Scene/SceneId.h"
+#include "Scene/SceneA.h"
+#include "Scene/SceneB.h"
 
 extern void ExitGame() noexcept;
 
@@ -18,7 +20,7 @@ Game::Game() noexcept(false)
     , m_states{}
     , m_debugFont{}
     , m_gameContext{}
-    , m_sceneManager{ CreateScene }
+    , m_sceneManager{}
 {
     m_deviceResources = std::make_unique<DX::DeviceResources>();
     // TODO: Provide parameters for swapchain format, depth/stencil format, and backbuffer count.
@@ -44,6 +46,10 @@ void Game::Initialize(HWND window, int width, int height)
     m_timer.SetFixedTimeStep(true);
     m_timer.SetTargetElapsedSeconds(1.0 / 60);
     */
+
+    // シーンの登録
+    m_sceneManager.RegisterScene<SceneA>(SceneId::SceneA);
+    m_sceneManager.RegisterScene<SceneB>(SceneId::SceneB);
 
     // ゲームコンテキストの設定
     m_gameContext.emplace(
