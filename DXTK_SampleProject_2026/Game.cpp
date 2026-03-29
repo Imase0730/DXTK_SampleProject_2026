@@ -18,7 +18,7 @@ Game::Game() noexcept(false)
     : m_keyboardTracker{}
     , m_mouseButtonTracker{}
     , m_states{}
-    , m_debugFont{}
+    , m_debugRenderer{}
     , m_gameContext{}
     , m_sceneManager{}
 {
@@ -58,7 +58,7 @@ void Game::Initialize(HWND window, int width, int height)
         m_keyboardTracker,       // <- KeyboardTracker
         m_mouseButtonTracker,    // <- MouseButtonTracker
         *m_states,               // <- CommonStates
-        *m_debugFont,            // <- DebugFont
+        *m_debugRenderer,        // <- DebugRenderer
         m_view, m_projection
     );
 
@@ -120,8 +120,8 @@ void Game::Render()
     // シーンの描画
     m_sceneManager.Render(*m_gameContext);
 
-    // デバッグ用文字列の描画
-    m_debugFont->Render(m_states.get());
+    // デバッグ用の描画
+    m_debugRenderer->Render(context, m_states.get());
 
     m_deviceResources->PIXEndEvent();
 
@@ -214,8 +214,8 @@ void Game::CreateDeviceDependentResources()
 
     // TODO: Initialize device dependent objects here (independent of window size).
     
-    // デバッグ用文字列表示オブジェクトの作成
-    m_debugFont = std::make_unique<Imase::DebugFont>(device, context, L"Resources/Font/SegoeUI_18.spritefont");
+    // デバッグ用の描画セットの作成
+    m_debugRenderer = std::make_unique<Imase::DebugRenderer>(device, context, L"Resources/Font/SegoeUI_18.spritefont");
 
     // コモンステートの作成
     m_states = std::make_unique<CommonStates>(device);

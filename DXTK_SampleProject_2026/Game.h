@@ -86,8 +86,8 @@ private:
     // コモンステート
     std::unique_ptr<DirectX::CommonStates> m_states;
 
-    // デバッグ用フォント
-    std::unique_ptr<Imase::DebugFont> m_debugFont;
+    // デバッグ用の描画セット
+    std::unique_ptr<Imase::DebugRenderer> m_debugRenderer;
 
     // ゲームコンテキスト
     std::optional<GameContext> m_gameContext;

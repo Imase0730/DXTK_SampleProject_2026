@@ -27,9 +27,6 @@
     <ClInclude Include="Common\DeviceResources.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="ImaseLib\DebugFont.h">
-      <Filter>ImaseLib</Filter>
-    </ClInclude>
     <ClInclude Include="ImaseLib\SceneManager.h">
       <Filter>ImaseLib</Filter>
     </ClInclude>
@@ -54,6 +51,9 @@
     <ClInclude Include="Scene\SceneId.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="ImaseLib\DebugRenderer.h">
+      <Filter>ImaseLib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -61,9 +61,6 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Common\DeviceResources.cpp">
       <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="ImaseLib\DebugFont.cpp">
-      <Filter>ImaseLib</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneA.cpp">
       <Filter>Scene</Filter>
@@ -79,6 +76,9 @@
     </ClCompile>
     <ClCompile Include="DirectXTK_Utilities\DebugDraw.cpp">
       <Filter>DirectXTK_Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="ImaseLib\DebugRenderer.cpp">
+      <Filter>ImaseLib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

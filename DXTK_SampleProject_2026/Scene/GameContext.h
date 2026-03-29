@@ -10,7 +10,7 @@
 
 #include "Common/StepTimer.h"
 #include "Common/DeviceResources.h"
-#include "ImaseLib/DebugFont.h"
+#include "ImaseLib/DebugRenderer.h"
 #include "ImaseLib/DebugCamera.h"
 #include "ImaseLib/GridFloor.h"
 
@@ -32,8 +32,8 @@ struct GameContext
 	// コモンステート
 	DirectX::CommonStates& commonStates;
 
-	// デバッグ用文字列表示へのポインタ
-	Imase::DebugFont& debugFont;
+	// デバッグ用の描画セット
+	Imase::DebugRenderer& debugRenderer;
 
 	// ビュー行列
 	DirectX::SimpleMath::Matrix& view;

@@ -28,9 +28,9 @@ void SceneB::Update(Imase::ISceneController<SceneId>& sceneController, GameConte
 		sceneController.RequestSwitch(SceneId::SceneA);
 	}
 
-	auto& debugFont = gameContext.debugFont;
+	auto& debugRenderer = gameContext.debugRenderer;
 
-	debugFont.AddString(L"SceneB", SimpleMath::Vector2(0.0f, 0.0f));
+	debugRenderer.DrawText({ 0.0f, 0.0f }, L"SceneB");
 
 	// デバッグカメラの更新
 	m_debugCamera->Update();

@@ -28,9 +28,10 @@ void SceneA::Update(Imase::ISceneController<SceneId>& sceneController, GameConte
 		sceneController.RequestSwitch(SceneId::SceneB);
 	}
 
-	auto& debugFont = gameContext.debugFont;
+	auto& debugRenderer = gameContext.debugRenderer;
 
-	debugFont.AddString(L"SceneA", SimpleMath::Vector2(0.0f, 0.0f));
+	debugRenderer.DrawText({ 0.0f, 0.0f }, L"SceneA");
+
 }
 
 // 描画
