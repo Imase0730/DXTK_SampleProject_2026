@@ -120,7 +120,7 @@ void Game::Render()
     // シーンの描画
     m_sceneManager.Render(*m_gameContext);
 
-    // デバッグ用の描画
+    // デバッグ関連の文字列などを描画
     m_debugRenderer->Render(context, m_states.get());
 
     m_deviceResources->PIXEndEvent();

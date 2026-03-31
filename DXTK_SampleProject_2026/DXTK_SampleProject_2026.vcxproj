@@ -187,6 +187,8 @@
     <ClInclude Include="ImaseLib\DebugRenderer.h" />
     <ClInclude Include="ImaseLib\GridFloor.h" />
     <ClInclude Include="ImaseLib\SceneManager.h" />
+    <ClInclude Include="ImaseLib\Task.h" />
+    <ClInclude Include="ImaseLib\TaskSystem.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Scene\GameContext.h" />
     <ClInclude Include="Scene\SceneA.h" />
