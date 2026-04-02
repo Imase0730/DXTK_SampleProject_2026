@@ -13,6 +13,8 @@
 #include "ImaseLib/SceneManager.h"
 #include "Scene/GameContext.h"
 #include "Scene/SceneId.h"
+#include "ImaseLib/TaskSystem.h"
+#include "Task/Player.h"
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -95,4 +97,8 @@ private:
     // シーンマネージャー
     Imase::SceneManager<SceneId, GameContext> m_sceneManager;
 
+    // タスクシステム
+    Imase::TaskSystem m_taskSystem;
+
+    Player* m_player;
 };

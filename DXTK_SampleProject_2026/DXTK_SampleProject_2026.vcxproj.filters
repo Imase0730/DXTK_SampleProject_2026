@@ -17,6 +17,9 @@
     <Filter Include="DirectXTK_Utilities">
       <UniqueIdentifier>{b9855007-75dd-44b7-bb00-1e824ff358fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Task">
+      <UniqueIdentifier>{f6e1ce10-692e-47a2-8e04-affe471dc603}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -60,6 +63,9 @@
     <ClInclude Include="ImaseLib\TaskSystem.h">
       <Filter>ImaseLib</Filter>
     </ClInclude>
+    <ClInclude Include="Task\Player.h">
+      <Filter>Task</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -85,6 +91,15 @@
     </ClCompile>
     <ClCompile Include="ImaseLib\DebugRenderer.cpp">
       <Filter>ImaseLib</Filter>
+    </ClCompile>
+    <ClCompile Include="ImaseLib\Task.cpp">
+      <Filter>ImaseLib</Filter>
+    </ClCompile>
+    <ClCompile Include="ImaseLib\TaskSystem.cpp">
+      <Filter>ImaseLib</Filter>
+    </ClCompile>
+    <ClCompile Include="Task\Player.cpp">
+      <Filter>Task</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

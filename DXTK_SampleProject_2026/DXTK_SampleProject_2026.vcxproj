@@ -195,6 +195,7 @@
     <ClInclude Include="Scene\SceneB.h" />
     <ClInclude Include="Common\StepTimer.h" />
     <ClInclude Include="Scene\SceneId.h" />
+    <ClInclude Include="Task\Player.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Common\DeviceResources.cpp" />
@@ -203,6 +204,8 @@
     <ClCompile Include="ImaseLib\DebugCamera.cpp" />
     <ClCompile Include="ImaseLib\DebugRenderer.cpp" />
     <ClCompile Include="ImaseLib\GridFloor.cpp" />
+    <ClCompile Include="ImaseLib\Task.cpp" />
+    <ClCompile Include="ImaseLib\TaskSystem.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -212,6 +215,7 @@
     </ClCompile>
     <ClCompile Include="Scene\SceneA.cpp" />
     <ClCompile Include="Scene\SceneB.cpp" />
+    <ClCompile Include="Task\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
