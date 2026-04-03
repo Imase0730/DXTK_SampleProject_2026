@@ -1,4 +1,12 @@
-﻿#include "pch.h"
+﻿//--------------------------------------------------------------------------------------
+// File: TaskSystem.cpp
+//
+// シーンシステムクラス
+//
+// Date: 2026.4.3
+// Author: Hideyasu Imase
+//--------------------------------------------------------------------------------------
+#include "pch.h"
 #include "TaskSystem.h"
 #include "Task.h"
 #include <algorithm>
@@ -20,19 +28,19 @@ namespace Imase
     // メンバ変数に前方参照のクラスのunique_ptrがある場合cpp側にデストラクタを記述する
     TaskSystem::~TaskSystem() = default;
 
-    //--------------------------------
+    // 子の追加
     void TaskSystem::RequestAddChild(Task* parent, std::unique_ptr<Task> child)
     {
         m_pendingAdd.push_back({ parent, std::move(child) });
     }
 
-    //--------------------------------
+    // 親の変更
     void TaskSystem::RequestChangeParent(Task* t, Task* newParent)
     {
         m_pendingChangeParent.push_back({ t, newParent });
     }
 
-    //--------------------------------
+    // 更新
     void TaskSystem::Update(float dt)
     {
         // 更新
@@ -44,18 +52,21 @@ namespace Imase
         for (auto& p : m_pendingAdd)
         {
             // 親が無効 or 死んでいるなら無視
-            if (!p.parent || p.parent->IsKill())
-                continue;
+            if (!p.parent || p.parent->IsKill()) continue;
 
+            // 親を設定
             p.child->m_parent = p.parent;
+
+            // ID登録
             p.child->SetSystem(this, m_nextID++);
 
+            // 親の子に追加
             p.parent->m_children.emplace_back(std::move(p.child));
         }
         m_pendingAdd.clear();
 
         //--------------------------------
-        // 先に削除（重要）
+        // 死んでいるタスクを削除
         //--------------------------------
         m_root->Cleanup();
 
@@ -68,16 +79,13 @@ namespace Imase
             Task* newParent = p.newParent;
 
             // 無効チェック
-            if (!t || !newParent || t == newParent)
-                continue;
+            if (!t || !newParent || t == newParent) continue;
 
             // 死亡チェック
-            if (t->IsKill() || newParent->IsKill())
-                continue;
+            if (t->IsKill() || newParent->IsKill()) continue;
 
             // rootは変更不可
-            if (!t->m_parent)
-                continue;
+            if (!t->m_parent) continue;
 
             //--------------------------------
             // 循環防止
@@ -90,8 +98,7 @@ namespace Imase
                     break;
                 }
             }
-            if (!newParent)
-                continue;
+            if (!newParent) continue;
 
             //--------------------------------
             // 元親から取り外し
@@ -121,27 +128,30 @@ namespace Imase
             self->m_parent = newParent;
             newParent->m_children.emplace_back(std::move(self));
         }
-
         m_pendingChangeParent.clear();
     }
 
-    //--------------------------------
+    // 描画
     void TaskSystem::Render()
     {
+        // 表示＆生きているタスクのリスト作成（親→子）
         std::vector<Task*> list;
         m_root->Collect(list);
 
-        // 描画順にソート
-        std::sort(list.begin(), list.end(),
+        // 描画順をソート
+        std::stable_sort(list.begin(), list.end(),
             [](Task* a, Task* b)
             {
                 return a->GetOt() < b->GetOt();
             });
 
-        for (auto* t : list)
+        // 描画
+        for (auto* task : list)
         {
-            if (!t->IsKill())
-                t->Render();
+            if (!task->IsKill())
+            {
+                task->Render();
+            }
         }
     }
 }

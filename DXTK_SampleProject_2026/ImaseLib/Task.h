@@ -105,13 +105,20 @@ namespace Imase
                 c->UpdateTree(dt);
         }
 
+        // 表示＆生きているタスクのリストを作成する関数（親→子）
         void Collect(std::vector<Task*>& out)
         {
             if (m_visible && !m_kill)
+            {
+                // リストへ登録
                 out.push_back(this);
+            }
 
-            for (auto& c : m_children)
-                c->Collect(out);
+            for (auto& child : m_children)
+            {
+                // 子へ
+                child->Collect(out);
+            }
         }
 
         void Cleanup()
