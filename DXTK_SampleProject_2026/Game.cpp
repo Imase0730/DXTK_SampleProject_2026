@@ -7,7 +7,7 @@
 #include "Scene/SceneId.h"
 #include "Scene/SceneA.h"
 #include "Scene/SceneB.h"
-#include "Task/Player.h"
+#include "Task/PlayerTask.h"
 
 extern void ExitGame() noexcept;
 
@@ -59,14 +59,11 @@ void Game::Initialize(HWND window, int width, int height)
         m_keyboardTracker,       // <- KeyboardTracker
         m_mouseButtonTracker,    // <- MouseButtonTracker
         *m_states,               // <- CommonStates
-        *m_debugRenderer,        // <- DebugRenderer
-        m_view, m_projection
+        *m_debugRenderer         // <- DebugRenderer
     );
 
     // 起動シーンの設定
     m_sceneManager.SetFirstScene(SceneId::SceneA, *m_gameContext);
-
-    m_player = m_taskSystem.GetRoot()->AddChild<Player>();
 }
 
 #pragma region Frame Update
@@ -99,9 +96,6 @@ void Game::Update(DX::StepTimer const& timer)
 
     // シーンの更新
     m_sceneManager.Update(*m_gameContext);
-
-    // タスクの更新
-    m_taskSystem.Update(elapsedTime);
 }
 #pragma endregion
 
@@ -125,9 +119,6 @@ void Game::Render()
 
     // シーンの描画
     m_sceneManager.Render(*m_gameContext);
-
-    // タスクの描画
-    m_taskSystem.Render();
 
     // デバッグ関連の文字列などを描画
     m_debugRenderer->Render(context, m_states.get());

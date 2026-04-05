@@ -15,9 +15,10 @@ using namespace DirectX;
 // 更新
 void SceneA::Update(Imase::ISceneController<SceneId>& sceneController, GameContext& gameContext)
 {
-	float elapsedTime = float(gameContext.timer.GetElapsedSeconds());
+	auto& debugRenderer = gameContext.debugRenderer;
 
-	elapsedTime;
+	// 経過時間
+	float elapsedTime = static_cast<float>(gameContext.timer.GetElapsedSeconds());
 
 	Keyboard::KeyboardStateTracker& tracker = gameContext.keyboardTracker;
 
@@ -28,22 +29,29 @@ void SceneA::Update(Imase::ISceneController<SceneId>& sceneController, GameConte
 		sceneController.RequestSwitch(SceneId::SceneB);
 	}
 
-	auto& debugRenderer = gameContext.debugRenderer;
+	// タスクの更新
+	m_taskSystem.Update(elapsedTime);
+
 
 	debugRenderer.DrawText({ 0.0f, 0.0f }, L"SceneA");
-
 }
 
 // 描画
-void SceneA::Render(GameContext& gameContext) const
+void SceneA::Render(GameContext& gameContext)
 {
 	auto& states = gameContext.commonStates;
 
-	m_spriteBatch->Begin(SpriteSortMode_Deferred, states.NonPremultiplied());
+	// スプライトバッチの設定
+	m_spriteBatch->Begin(
+		SpriteSortMode_Deferred,	// Endでまとめて描画
+		states.NonPremultiplied(),	// 半透明
+		states.PointWrap()			// サンプラー
+	);
 
-	// スプライトの描画
-	m_spriteBatch->Draw(m_texture.Get(), SimpleMath::Vector2(100.0f, 100.0f));
+	// タスクの描画
+	m_taskSystem.Render();
 
+	// 登録されたスプライトの描画
 	m_spriteBatch->End();
 }
 
@@ -60,4 +68,11 @@ void SceneA::OnEnter(GameContext& gameContext)
 	DX::ThrowIfFailed(
 		CreateDDSTextureFromFile(device, L"Resources/Textures/ShootingGame.dds", nullptr, m_texture.ReleaseAndGetAddressOf())
 	);
+
+	// プレイヤーを生成
+	m_player = m_taskSystem.GetRoot()->AddChild<PlayerTask>(&gameContext, m_spriteBatch.get(), m_texture.Get());
+
+	// プレイヤーの初期位置設定（画面中央）
+	RECT rect = gameContext.deviceResources.GetOutputSize();
+	m_player->SetPosition({ (rect.right - PlayerTask::SIZE) / 2.0f, 600.0f });
 }

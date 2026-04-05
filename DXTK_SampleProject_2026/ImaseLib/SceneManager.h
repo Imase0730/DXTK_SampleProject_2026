@@ -44,7 +44,7 @@ namespace Imase
 		// 更新
 		virtual void Update(ISceneController<TSceneKey>& sceneController, TContext& context) = 0;
 		// 描画
-		virtual void Render(TContext& gameContext) const = 0;
+		virtual void Render(TContext& gameContext) = 0;
 
 		// 自シーンへ移行時に呼び出される関数
 		virtual void OnEnter(TContext&) {}

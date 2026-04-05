@@ -195,7 +195,8 @@
     <ClInclude Include="Scene\SceneB.h" />
     <ClInclude Include="Common\StepTimer.h" />
     <ClInclude Include="Scene\SceneId.h" />
-    <ClInclude Include="Task\Player.h" />
+    <ClInclude Include="Task\BulletTask.h" />
+    <ClInclude Include="Task\PlayerTask.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Common\DeviceResources.cpp" />
@@ -215,7 +216,8 @@
     </ClCompile>
     <ClCompile Include="Scene\SceneA.cpp" />
     <ClCompile Include="Scene\SceneB.cpp" />
-    <ClCompile Include="Task\Player.cpp" />
+    <ClCompile Include="Task\BulletTask.cpp" />
+    <ClCompile Include="Task\PlayerTask.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

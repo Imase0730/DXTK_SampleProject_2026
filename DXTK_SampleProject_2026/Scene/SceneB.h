@@ -22,7 +22,7 @@ public:
 	void Update(Imase::ISceneController<SceneId>& sceneController, GameContext& gameContext) override;
 
 	// •`‰æ
-	void Render(GameContext& gameContext) const override;
+	void Render(GameContext& gameContext) override;
 
 	// ƒV[ƒ“Ø‚è‘Ö‚¦‚ÉŒÄ‚Ño‚³‚ê‚éŠÖ”
 	void OnEnter(GameContext& gameContext) override;

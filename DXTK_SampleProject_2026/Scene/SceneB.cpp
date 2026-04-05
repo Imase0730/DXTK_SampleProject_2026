@@ -37,7 +37,7 @@ void SceneB::Update(Imase::ISceneController<SceneId>& sceneController, GameConte
 }
 
 // 描画
-void SceneB::Render(GameContext& gameContext) const
+void SceneB::Render(GameContext& gameContext)
 {
 	auto context = gameContext.deviceResources.GetD3DDeviceContext();
 	auto& states = gameContext.commonStates;

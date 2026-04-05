@@ -34,11 +34,5 @@ struct GameContext
 
 	// デバッグ用の描画セット
 	Imase::DebugRenderer& debugRenderer;
-
-	// ビュー行列
-	DirectX::SimpleMath::Matrix& view;
-
-	// プロジェクション行列
-	DirectX::SimpleMath::Matrix& projection;
 };
 

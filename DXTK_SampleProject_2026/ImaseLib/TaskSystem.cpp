@@ -1,7 +1,7 @@
 ﻿//--------------------------------------------------------------------------------------
 // File: TaskSystem.cpp
 //
-// シーンシステムクラス
+// タスクシステム
 //
 // Date: 2026.4.3
 // Author: Hideyasu Imase
@@ -16,9 +16,9 @@ namespace Imase
     // コンストラクタ
     TaskSystem::TaskSystem()
     {
-        // ルートタスク作成
+        // ルート作成
         m_root = std::make_unique<Task>();
-        m_root->SetSystem(this, m_nextID++);
+        Register(m_root.get());
     }
 
     // デストラクタ
@@ -35,16 +35,83 @@ namespace Imase
     }
 
     // 親の変更
-    void TaskSystem::RequestChangeParent(Task* t, Task* newParent)
+    void TaskSystem::RequestChangeParent(Task* task, Task* newParent)
     {
-        m_pendingChangeParent.push_back({ t, newParent });
+        m_pendingChangeParent.push_back({ task, newParent });
+    }
+
+    // ID検索
+    Task* TaskSystem::FindByID(uint64_t id)
+    {
+        auto it = m_idMap.find(id);
+        return (it != m_idMap.end()) ? it->second : nullptr;
+    }
+
+    // タグ検索
+    std::vector<Task*> TaskSystem::FindByTag(const std::wstring& tag)
+    {
+        std::vector<Task*> result;
+
+        auto range = m_tagMap.equal_range(tag);
+
+        result.reserve(std::distance(range.first, range.second));
+
+        for (auto it = range.first; it != range.second; ++it)
+        {
+            Task* t = it->second;
+
+            if (t && !t->IsKill())
+            {
+                result.push_back(t);
+            }
+        }
+
+        return result;
+    }
+
+    // タグの変更
+    void TaskSystem::UpdateTag(Task* task, const std::wstring& oldTag, const std::wstring& newTag)
+    {
+        // 古いタグ削除
+        if (!oldTag.empty())
+        {
+            auto range = m_tagMap.equal_range(oldTag);
+            for (auto it = range.first; it != range.second; ++it)
+            {
+                if (it->second == task)
+                {
+                    m_tagMap.erase(it);
+                    break;
+                }
+            }
+        }
+
+        // 新しいタグ登録
+        if (!newTag.empty())
+        {
+            m_tagMap.emplace(newTag, task);
+        }
+    }
+
+    // タスク登録
+    void TaskSystem::Register(Task* task)
+    {
+        assert(task->GetID() == 0);
+        task->SetSystem(this, m_nextID++);
+        m_idMap[task->GetID()] = task;
+
+        // タグがある場合だけ登録
+        if (!task->GetTag().empty())
+        {
+            m_tagMap.emplace(task->GetTag(), task);
+        }
     }
 
     // 更新
-    void TaskSystem::Update(float dt)
+    void TaskSystem::Update(float elapsedTime)
     {
         // 更新
-        m_root->UpdateTree(dt);
+        m_root->UpdateTree(elapsedTime);
 
         //--------------------------------
         // AddChild適用
@@ -58,7 +125,7 @@ namespace Imase
             p.child->m_parent = p.parent;
 
             // ID登録
-            p.child->SetSystem(this, m_nextID++);
+            Register(p.child.get());
 
             // 親の子に追加
             p.parent->m_children.emplace_back(std::move(p.child));
@@ -66,33 +133,58 @@ namespace Imase
         m_pendingAdd.clear();
 
         //--------------------------------
-        // 死んでいるタスクを削除
+        // タスクを削除
         //--------------------------------
+        std::vector<Task*> removed;
+
+        // 削除するタスクリスト作成
+        m_root->CollectRemoved(removed);
+
+        // タスクを削除
         m_root->Cleanup();
+        
+        for (auto* task : removed)
+        {
+            // IDMapから削除
+            m_idMap.erase(task->GetID());
+            // TagMaoから削除
+            if (!task->GetTag().empty())
+            {
+                auto range = m_tagMap.equal_range(task->GetTag());
+                for (auto it = range.first; it != range.second; ++it)
+                {
+                    if (it->second == task)
+                    {
+                        m_tagMap.erase(it);
+                        break;
+                    }
+                }
+            }
+        }
 
         //--------------------------------
         // ChangeParent適用
         //--------------------------------
         for (auto& p : m_pendingChangeParent)
         {
-            Task* t = p.task;
+            Task* task = p.task;
             Task* newParent = p.newParent;
 
             // 無効チェック
-            if (!t || !newParent || t == newParent) continue;
+            if (!task || !newParent || task == newParent) continue;
 
             // 死亡チェック
-            if (t->IsKill() || newParent->IsKill()) continue;
+            if (task->IsKill() || newParent->IsKill()) continue;
 
-            // rootは変更不可
-            if (!t->m_parent) continue;
+            // ルートは変更不可
+            if (!task->m_parent) continue;
 
             //--------------------------------
-            // 循環防止
+            // 循環防止（A（親）←B（子）←A×）
             //--------------------------------
             for (Task* cur = newParent; cur; cur = cur->m_parent)
             {
-                if (cur == t)
+                if (cur == task)
                 {
                     newParent = nullptr;
                     break;
@@ -103,18 +195,15 @@ namespace Imase
             //--------------------------------
             // 元親から取り外し
             //--------------------------------
-            auto& siblings = t->m_parent->m_children;
+            std::vector<Task::Ptr>& siblings = task->m_parent->m_children;
 
-            auto it = std::find_if(
-                siblings.begin(),
-                siblings.end(),
-                [t](const Task::Ptr& ptr)
+            auto it = std::find_if(siblings.begin(), siblings.end(),
+                [task](const Task::Ptr& ptr)
                 {
-                    return ptr.get() == t;
+                    return ptr.get() == task;
                 });
 
-            if (it == siblings.end())
-                continue;
+            if (it == siblings.end()) continue;
 
             //--------------------------------
             // 所有権移動
@@ -148,10 +237,7 @@ namespace Imase
         // 描画
         for (auto* task : list)
         {
-            if (!task->IsKill())
-            {
-                task->Render();
-            }
+            task->Render();
         }
     }
 }

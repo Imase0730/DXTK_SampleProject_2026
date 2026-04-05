@@ -1,7 +1,7 @@
-//--------------------------------------------------------------------------------------
+ï»¿//--------------------------------------------------------------------------------------
 // File: SceneA.h
 //
-// ƒTƒ“ƒvƒ‹ƒV[ƒ“ƒNƒ‰ƒX
+// ã‚µãƒ³ãƒ—ãƒ«ã‚·ãƒ¼ãƒ³ã‚¯ãƒ©ã‚¹
 //
 // Date: 2026.2.24
 // Author: Hideyasu Imase
@@ -11,27 +11,34 @@
 #include "ImaseLib/SceneManager.h"
 #include "GameContext.h"
 #include "SceneId.h"
+#include "ImaseLib/TaskSystem.h"
+#include "Task/PlayerTask.h"
 
 class SceneA : public Imase::SceneBase<SceneId, GameContext>
 {
 public:
 
-	// XV
+	// æ›´æ–°
 	void Update(Imase::ISceneController<SceneId>& sceneController, GameContext& gameContext) override;
 
-	// •`‰æ
-	void Render(GameContext& gameContext) const override;
+	// æç”»
+	void Render(GameContext& gameContext) override;
 
-	// ƒV[ƒ“Ø‚è‘Ö‚¦‚ÉŒÄ‚Ño‚³‚ê‚éŠÖ”
+	// ã‚·ãƒ¼ãƒ³åˆ‡ã‚Šæ›¿ãˆæ™‚ã«å‘¼ã³å‡ºã•ã‚Œã‚‹é–¢æ•°
 	void OnEnter(GameContext& gameContext) override;
 
 private:
 
-	// ƒXƒvƒ‰ƒCƒgƒoƒbƒ`
+	// ã‚¿ã‚¹ã‚¯ã‚·ã‚¹ãƒ†ãƒ 
+	Imase::TaskSystem m_taskSystem;
+
+	// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆãƒãƒƒãƒ
 	std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;
 
-	// ƒVƒF[ƒ_[ƒŠƒ\[ƒXƒrƒ…[
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒªã‚½ãƒ¼ã‚¹ãƒ“ãƒ¥ãƒ¼
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
 
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¿ã‚¹ã‚¯ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	PlayerTask* m_player = nullptr;
 };
 

@@ -63,7 +63,10 @@
     <ClInclude Include="ImaseLib\TaskSystem.h">
       <Filter>ImaseLib</Filter>
     </ClInclude>
-    <ClInclude Include="Task\Player.h">
+    <ClInclude Include="Task\PlayerTask.h">
+      <Filter>Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Task\BulletTask.h">
       <Filter>Task</Filter>
     </ClInclude>
   </ItemGroup>
@@ -98,7 +101,10 @@
     <ClCompile Include="ImaseLib\TaskSystem.cpp">
       <Filter>ImaseLib</Filter>
     </ClCompile>
-    <ClCompile Include="Task\Player.cpp">
+    <ClCompile Include="Task\PlayerTask.cpp">
+      <Filter>Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Task\BulletTask.cpp">
       <Filter>Task</Filter>
     </ClCompile>
   </ItemGroup>
