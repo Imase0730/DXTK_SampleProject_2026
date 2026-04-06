@@ -39,6 +39,6 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
 
 	// プレイヤータスクへのポインタ
-	PlayerTask* m_player = nullptr;
+	PlayerTask* m_playerTask = nullptr;
 };
 

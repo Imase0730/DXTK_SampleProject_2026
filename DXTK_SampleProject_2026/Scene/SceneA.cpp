@@ -32,7 +32,6 @@ void SceneA::Update(Imase::ISceneController<SceneId>& sceneController, GameConte
 	// タスクの更新
 	m_taskSystem.Update(elapsedTime);
 
-
 	debugRenderer.DrawText({ 0.0f, 0.0f }, L"SceneA");
 }
 
@@ -70,9 +69,12 @@ void SceneA::OnEnter(GameContext& gameContext)
 	);
 
 	// プレイヤーを生成
-	m_player = m_taskSystem.GetRoot()->AddChild<PlayerTask>(&gameContext, m_spriteBatch.get(), m_texture.Get());
+	if (!m_playerTask)
+	{
+		m_playerTask = m_taskSystem.GetRoot()->AddChild<PlayerTask>(gameContext, *m_spriteBatch, m_texture.Get());
+	}
 
 	// プレイヤーの初期位置設定（画面中央）
 	RECT rect = gameContext.deviceResources.GetOutputSize();
-	m_player->SetPosition({ (rect.right - PlayerTask::SIZE) / 2.0f, 600.0f });
+	m_playerTask->SetPosition({ (rect.right - PlayerTask::SIZE) / 2.0f, 600.0f });
 }

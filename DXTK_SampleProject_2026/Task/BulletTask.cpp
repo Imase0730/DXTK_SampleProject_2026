@@ -12,18 +12,20 @@
 
 // コンストラクタ
 BulletTask::BulletTask(
-    GameContext* pGameContext,
-    DirectX::SpriteBatch* pSpriteBatch,
+    const GameContext& gameContext,
+    DirectX::SpriteBatch& spriteBatch,
     ID3D11ShaderResourceView* pTexture,
     DirectX::SimpleMath::Vector2 position,
     DirectX::SimpleMath::Vector2 velocity
 )
-    : m_pGameContext(pGameContext)
-    , m_pSpriteBatch(pSpriteBatch)
+    : m_gameContext(gameContext)
+    , m_spriteBatch(spriteBatch)
     , m_pTexture(pTexture)
     , m_position(position)
     , m_velocity(velocity)
 {
+    // タグを設定
+    SetTag(L"Bullet");
 }
 
 // デストラクタ
@@ -43,7 +45,7 @@ bool BulletTask::Update(float elapsedTime)
     m_position += m_velocity * elapsedTime;
 
     // 画面外に弾が出たか？
-    RECT rect = m_pGameContext->deviceResources.GetOutputSize();
+    RECT rect = m_gameContext.deviceResources.GetOutputSize();
     float moveUpMax = static_cast<float>(rect.top - BulletTask::SIZE);
     float moveDownMax = static_cast<float>(rect.bottom);
     if ( (m_position.y < moveUpMax)		// 画面外に出たら（上部）
@@ -63,5 +65,5 @@ void BulletTask::Render()
     RECT srcRect = { 62, 32, 62 + 16, 32 + 16 };
 
     // 弾の描画
-    m_pSpriteBatch->Draw(m_pTexture, m_position, &srcRect);
+    m_spriteBatch.Draw(m_pTexture, m_position, &srcRect);
 }

@@ -33,8 +33,8 @@ public:
 
 	// コンストラクタ
 	PlayerTask(
-		GameContext* pGameContext,
-		DirectX::SpriteBatch* pSpriteBatch,
+		const GameContext& gameContext,
+		DirectX::SpriteBatch& spriteBatch,
 		ID3D11ShaderResourceView* pTexture
 	);
 
@@ -50,13 +50,13 @@ public:
 private:
 
 	// ゲームコンテキストへのポインタ
-	GameContext* m_pGameContext = nullptr;
+	const GameContext& m_gameContext;
 
 	// スプライトバッチへのポインタ
-	DirectX::SpriteBatch* m_pSpriteBatch = nullptr;
+	DirectX::SpriteBatch& m_spriteBatch;
 
 	// テクスチャへのポインタ
-	ID3D11ShaderResourceView* m_pTexture = nullptr;
+	ID3D11ShaderResourceView* m_pTexture;
 
 	// 位置
 	DirectX::SimpleMath::Vector2 m_position = { 0.0f, 0.0f };

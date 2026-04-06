@@ -24,8 +24,8 @@ public:
 
 	// コンストラクタ
 	BulletTask(
-		GameContext* pGameContext,
-		DirectX::SpriteBatch* pSpriteBatch,
+		const GameContext& gameContext,
+		DirectX::SpriteBatch& spriteBatch,
 		ID3D11ShaderResourceView* pTexture,
 		DirectX::SimpleMath::Vector2 position,
 		DirectX::SimpleMath::Vector2 velocity
@@ -49,13 +49,13 @@ public:
 private:
 
 	// ゲームコンテキストへのポインタ
-	GameContext* m_pGameContext = nullptr;
+	const GameContext& m_gameContext;
 
 	// スプライトバッチへのポインタ
-	DirectX::SpriteBatch* m_pSpriteBatch = nullptr;
+	DirectX::SpriteBatch& m_spriteBatch;
 
 	// テクスチャへのポインタ
-	ID3D11ShaderResourceView* m_pTexture = nullptr;
+	ID3D11ShaderResourceView* m_pTexture;
 
 	// 消滅した時に呼び出される関数
 	std::function<void()> m_onDestroy;

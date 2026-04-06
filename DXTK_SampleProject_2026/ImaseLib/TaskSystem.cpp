@@ -147,7 +147,7 @@ namespace Imase
         {
             // IDMapから削除
             m_idMap.erase(task->GetID());
-            // TagMaoから削除
+            // TagMapから削除
             if (!task->GetTag().empty())
             {
                 auto range = m_tagMap.equal_range(task->GetTag());
