@@ -1,7 +1,7 @@
 ﻿//--------------------------------------------------------------------------------------
-// File: BulletTask.h
+// File: EnemyTask.h
 //
-// 弾タスク
+// 敵タスク
 //
 // Date: 2026.4.5
 // Author: Hideyasu Imase
@@ -12,33 +12,44 @@
 #include "../Scene/GameContext.h"
 #include "GameTypes.h"
 
-class BulletTask : public Imase::Task, public IFaction
+class EnemyTask : public Imase::Task, public IFaction
 {
 public:
 
 	// 大きさ(dot)
-	static constexpr int SIZE = 16;
+	static constexpr int SIZE = 64;
+
+	// 移動の速さ(dot/s)
+	static constexpr int SPEED = 300;
+
+private:
+
+	// 発射した弾の数
+	int m_bulletCount = 0;
+
+	// 画面上の弾の最大数
+	static constexpr int MAX_BULLET = 3;
 
 public:
 
 	// コンストラクタ
-	BulletTask(
+	EnemyTask(
 		const GameContext& gameContext,
 		DirectX::SpriteBatch& spriteBatch,
-		ID3D11ShaderResourceView* pTexture,
-		DirectX::SimpleMath::Vector2 position,
-		DirectX::SimpleMath::Vector2 velocity,
-		Faction faction
+		ID3D11ShaderResourceView* pTexture
 	);
 
 	// デストラクタ
-	~BulletTask();
+	~EnemyTask();
 
 	// 更新
 	bool Update(float elapsedTime) override;
 
 	// 描画
 	void Render() override;
+
+	// 位置を設定する関数
+	void SetPosition(DirectX::SimpleMath::Vector2 position) { m_position = position; }
 
 	// 消滅した時に呼び出される関数を設定する関数
 	void SetOnDestroy(std::function<void()> func)
@@ -49,7 +60,7 @@ public:
 	// 当たり判定用のグループを取得する関数
 	Faction GetFaction() const override
 	{
-		return m_faction;
+		return Faction::Enemy;
 	}
 
 private:
@@ -69,10 +80,6 @@ private:
 	// 位置
 	DirectX::SimpleMath::Vector2 m_position = { 0.0f, 0.0f };
 
-	// 速度(dot/s)
-	DirectX::SimpleMath::Vector2 m_velocity = { 0.0f, 0.0f };
 
-	// 当たり判定用のグループ
-	Faction m_faction;
 
 };

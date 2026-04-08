@@ -69,10 +69,7 @@ void SceneA::OnEnter(GameContext& gameContext)
 	);
 
 	// プレイヤーを生成
-	if (!m_playerTask)
-	{
-		m_playerTask = m_taskSystem.GetRoot()->AddChild<PlayerTask>(gameContext, *m_spriteBatch, m_texture.Get());
-	}
+	m_playerTask = m_taskSystem.GetRoot()->AddChild<PlayerTask>(gameContext, *m_spriteBatch, m_texture.Get());
 
 	// プレイヤーの初期位置設定（画面中央）
 	RECT rect = gameContext.deviceResources.GetOutputSize();

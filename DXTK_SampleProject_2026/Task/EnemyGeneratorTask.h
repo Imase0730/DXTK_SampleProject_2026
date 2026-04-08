@@ -1,7 +1,7 @@
 ﻿//--------------------------------------------------------------------------------------
-// File: PlayerTask.h
+// File: EnemyGeneratorTask.h
 //
-// プレイヤータスク
+// 敵生成タスク
 //
 // Date: 2026.4.5
 // Author: Hideyasu Imase
@@ -10,30 +10,19 @@
 
 #include "../ImaseLib/Task.h"
 #include "../Scene/GameContext.h"
-#include "GameTypes.h"
 
-class PlayerTask : public Imase::Task, public IFaction
+class EnemyGeneratorTask : public Imase::Task
 {
 public:
 
-	// 大きさ(dot)
-	static constexpr int SIZE = 64;
-
-	// 移動の速さ(dot/s)
-	static constexpr int SPEED = 300;
 
 private:
 
-	// 発射した弾の数
-	int m_bulletCount = 0;
-
-	// 画面上の弾の最大数
-	static constexpr int MAX_BULLET = 3;
 
 public:
 
 	// コンストラクタ
-	PlayerTask(
+	EnemyGeneratorTask(
 		const GameContext& gameContext,
 		DirectX::SpriteBatch& spriteBatch,
 		ID3D11ShaderResourceView* pTexture
@@ -41,18 +30,6 @@ public:
 
 	// 更新
 	bool Update(float elapsedTime) override;
-
-	// 描画
-	void Render() override;
-
-	// 位置を設定する関数
-	void SetPosition(DirectX::SimpleMath::Vector2 position) { m_position = position; }
-
-	// 当たり判定用のグループを取得する関数
-	Faction GetFaction() const override
-	{
-		return Faction::Player;
-	}
 
 private:
 
@@ -64,8 +41,5 @@ private:
 
 	// テクスチャへのポインタ
 	ID3D11ShaderResourceView* m_pTexture;
-
-	// 位置
-	DirectX::SimpleMath::Vector2 m_position = { 0.0f, 0.0f };
 
 };

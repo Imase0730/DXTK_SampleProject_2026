@@ -57,7 +57,8 @@ bool PlayerTask::Update(float elapsedTime)
                 m_spriteBatch,
                 m_pTexture,
                 SimpleMath::Vector2(m_position.x + (PlayerTask::SIZE - BulletTask::SIZE) / 2, m_position.y),
-                SimpleMath::Vector2(0.0f, -300.0f)
+                SimpleMath::Vector2(0.0f, -300.0f),
+                Faction::Player
             );
             // 弾タスクが消滅した時に呼び出される関数を登録
             bullet->SetOnDestroy([this]()

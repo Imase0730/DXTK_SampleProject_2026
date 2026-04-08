@@ -16,13 +16,15 @@ BulletTask::BulletTask(
     DirectX::SpriteBatch& spriteBatch,
     ID3D11ShaderResourceView* pTexture,
     DirectX::SimpleMath::Vector2 position,
-    DirectX::SimpleMath::Vector2 velocity
+    DirectX::SimpleMath::Vector2 velocity,
+    Faction faction
 )
     : m_gameContext(gameContext)
     , m_spriteBatch(spriteBatch)
     , m_pTexture(pTexture)
     , m_position(position)
     , m_velocity(velocity)
+    , m_faction(faction)
 {
     // タグを設定
     SetTag(L"Bullet");
