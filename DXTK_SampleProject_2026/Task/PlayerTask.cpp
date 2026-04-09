@@ -96,3 +96,15 @@ void PlayerTask::Render()
     m_spriteBatch.Draw(m_pTexture, m_position, &srcRect, Colors::White, 0.0f, { 0.0f, 0.0f }, 2.0f);
 }
 
+// 境界ボックスを取得する関数
+RECT PlayerTask::GetBoundingBox() const
+{
+    RECT rect{};
+
+    rect.left = m_position.x;
+    rect.right = m_position.x + PlayerTask::SIZE;
+    rect.top = m_position.y;
+    rect.bottom = m_position.y + PlayerTask::SIZE;
+
+    return rect;
+}

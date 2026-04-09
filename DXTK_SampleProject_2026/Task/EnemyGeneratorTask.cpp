@@ -29,6 +29,26 @@ EnemyGeneratorTask::EnemyGeneratorTask(
 // 更新
 bool EnemyGeneratorTask::Update(float elapsedTime)
 {
+    // 敵の出現用のタイマーの加算
+    m_spawnTimer += elapsedTime;
+ 
+    // 一定の間隔で敵を出現させる
+    if (m_spawnTimer >= SPAWN_INTERVAL)
+    {
+        // 敵の出現用のタイマーの初期化
+        m_spawnTimer = 0.0f;
+
+        // 画面サイズ取得
+        RECT rect = m_gameContext.deviceResources.GetOutputSize();
+
+        // 敵タスクを生成（画面上から出現）
+        AddChild<EnemyTask>(
+            m_gameContext,
+            m_spriteBatch,
+            m_pTexture,
+            SimpleMath::Vector2(static_cast<float>(std::rand() % (rect.right - EnemyTask::SIZE)), -EnemyTask::SIZE)
+        );
+    }
 
     return true;
 }

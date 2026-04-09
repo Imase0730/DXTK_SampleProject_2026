@@ -36,7 +36,8 @@ public:
 	EnemyTask(
 		const GameContext& gameContext,
 		DirectX::SpriteBatch& spriteBatch,
-		ID3D11ShaderResourceView* pTexture
+		ID3D11ShaderResourceView* pTexture,
+		DirectX::SimpleMath::Vector2 position
 	);
 
 	// デストラクタ
@@ -47,9 +48,6 @@ public:
 
 	// 描画
 	void Render() override;
-
-	// 位置を設定する関数
-	void SetPosition(DirectX::SimpleMath::Vector2 position) { m_position = position; }
 
 	// 消滅した時に呼び出される関数を設定する関数
 	void SetOnDestroy(std::function<void()> func)
@@ -62,6 +60,9 @@ public:
 	{
 		return Faction::Enemy;
 	}
+
+	// 境界ボックスを取得する関数
+	RECT GetBoundingBox() const;
 
 private:
 
@@ -79,7 +80,5 @@ private:
 
 	// 位置
 	DirectX::SimpleMath::Vector2 m_position = { 0.0f, 0.0f };
-
-
 
 };

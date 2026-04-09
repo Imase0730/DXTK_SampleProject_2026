@@ -18,6 +18,11 @@ public:
 
 private:
 
+	// １秒間あたりの出現数
+	static constexpr int SPAWN_COUNT_PERSECOND = 3;
+
+	// 出現間隔
+	static constexpr float SPAWN_INTERVAL = 1.0f / SPAWN_COUNT_PERSECOND;
 
 public:
 
@@ -40,6 +45,9 @@ private:
 	DirectX::SpriteBatch& m_spriteBatch;
 
 	// テクスチャへのポインタ
-	ID3D11ShaderResourceView* m_pTexture;
+	ID3D11ShaderResourceView* m_pTexture = nullptr;
+
+	// 敵の出現用のタイマー
+	float m_spawnTimer = 0.0f;
 
 };

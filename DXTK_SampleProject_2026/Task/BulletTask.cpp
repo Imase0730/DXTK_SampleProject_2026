@@ -69,3 +69,16 @@ void BulletTask::Render()
     // 弾の描画
     m_spriteBatch.Draw(m_pTexture, m_position, &srcRect);
 }
+
+// 境界ボックスを取得する関数
+RECT BulletTask::GetBoundingBox() const
+{
+    RECT rect{};
+
+    rect.left = m_position.x;
+    rect.right = m_position.x + BulletTask::SIZE;
+    rect.top = m_position.y;
+    rect.bottom = m_position.y + BulletTask::SIZE;
+
+    return rect;
+}

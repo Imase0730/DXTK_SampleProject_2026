@@ -52,6 +52,9 @@ public:
 		return m_faction;
 	}
 
+	// 境界ボックスを取得する関数
+	RECT GetBoundingBox() const;
+
 private:
 
 	// ゲームコンテキストへのポインタ

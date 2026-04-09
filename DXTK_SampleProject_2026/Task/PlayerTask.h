@@ -53,6 +53,9 @@ public:
 	{
 		return Faction::Player;
 	}
+	
+	// 境界ボックスを取得する関数
+	RECT GetBoundingBox() const;
 
 private:
 
