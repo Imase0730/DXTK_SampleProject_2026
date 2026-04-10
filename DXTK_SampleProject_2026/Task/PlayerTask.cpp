@@ -16,11 +16,13 @@ using namespace DirectX;
 PlayerTask::PlayerTask(
     const GameContext& gameContext,
     DirectX::SpriteBatch& spriteBatch,
-    ID3D11ShaderResourceView* pTexture
+    ID3D11ShaderResourceView* pTexture,
+    DirectX::SimpleMath::Vector2 position
 )
     : m_gameContext(gameContext)
     , m_spriteBatch(spriteBatch)
     , m_pTexture(pTexture)
+    , m_position(position)
 {
     // タグを設定
     SetTag(L"Player");
@@ -52,7 +54,7 @@ bool PlayerTask::Update(float elapsedTime)
         if (m_bulletCount < MAX_BULLET)
         {
             // 弾タスクを生成
-            BulletTask* bullet = AddChild<BulletTask>(
+            BulletTask* bullet = GetParent()->AddChild<BulletTask>(
                 m_gameContext,
                 m_spriteBatch,
                 m_pTexture,
@@ -96,15 +98,15 @@ void PlayerTask::Render()
     m_spriteBatch.Draw(m_pTexture, m_position, &srcRect, Colors::White, 0.0f, { 0.0f, 0.0f }, 2.0f);
 }
 
-// 境界ボックスを取得する関数
-RECT PlayerTask::GetBoundingBox() const
+// 境界を取得する関数
+RECT PlayerTask::GetBoundingRect() const
 {
     RECT rect{};
 
-    rect.left = m_position.x;
-    rect.right = m_position.x + PlayerTask::SIZE;
-    rect.top = m_position.y;
-    rect.bottom = m_position.y + PlayerTask::SIZE;
+    rect.left = static_cast<LONG>(m_position.x);
+    rect.right = static_cast<LONG>(m_position.x + PlayerTask::SIZE);
+    rect.top = static_cast<LONG>(m_position.y);
+    rect.bottom = static_cast<LONG>(m_position.y + PlayerTask::SIZE);
 
     return rect;
 }

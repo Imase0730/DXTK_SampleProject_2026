@@ -107,6 +107,9 @@ namespace Imase
         // 親変更
         void ChangeParent(Task* newParent);
    
+        // 親タスクを取得する関数
+        Task* GetParent() { return m_parent; }
+
     private:
         //--------------------------------
         // タスクシステム内部用

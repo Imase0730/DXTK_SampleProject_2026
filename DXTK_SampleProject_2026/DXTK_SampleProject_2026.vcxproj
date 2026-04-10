@@ -199,6 +199,7 @@
     <ClInclude Include="Task\BulletTask.h" />
     <ClInclude Include="Task\EnemyGeneratorTask.h" />
     <ClInclude Include="Task\EnemyTask.h" />
+    <ClInclude Include="Task\ExplosionTask.h" />
     <ClInclude Include="Task\GameTypes.h" />
     <ClInclude Include="Task\PlayerTask.h" />
   </ItemGroup>
@@ -224,6 +225,7 @@
     <ClCompile Include="Task\BulletTask.cpp" />
     <ClCompile Include="Task\EnemyGeneratorTask.cpp" />
     <ClCompile Include="Task\EnemyTask.cpp" />
+    <ClCompile Include="Task\ExplosionTask.cpp" />
     <ClCompile Include="Task\PlayerTask.cpp" />
   </ItemGroup>
   <ItemGroup>

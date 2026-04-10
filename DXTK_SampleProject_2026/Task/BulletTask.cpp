@@ -70,15 +70,15 @@ void BulletTask::Render()
     m_spriteBatch.Draw(m_pTexture, m_position, &srcRect);
 }
 
-// 境界ボックスを取得する関数
-RECT BulletTask::GetBoundingBox() const
+// 境界を取得する関数
+RECT BulletTask::GetBoundingRect() const
 {
     RECT rect{};
 
-    rect.left = m_position.x;
-    rect.right = m_position.x + BulletTask::SIZE;
-    rect.top = m_position.y;
-    rect.bottom = m_position.y + BulletTask::SIZE;
+    rect.left = static_cast<LONG>(m_position.x);
+    rect.right = static_cast<LONG>(m_position.x + BulletTask::SIZE);
+    rect.top = static_cast<LONG>(m_position.y);
+    rect.bottom = static_cast<LONG>(m_position.y + BulletTask::SIZE);
 
     return rect;
 }

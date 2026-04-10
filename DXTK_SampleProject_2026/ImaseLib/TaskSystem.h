@@ -85,5 +85,8 @@ namespace Imase
         // ID登録
         void Register(Task* task);
 
+        // ID登録解除
+        void Unregister(Task* task);
+
     };
 }

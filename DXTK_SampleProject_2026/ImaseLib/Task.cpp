@@ -47,6 +47,7 @@ namespace Imase
         {
             // タスクを消去
             m_kill = true;
+            return;
         }
 
         // 子の更新
@@ -93,6 +94,10 @@ namespace Imase
             if (child->m_kill)
             {
                 CollectAll(child.get(), removed);
+            }
+            else
+            {
+                child->CollectRemoved(removed);
             }
         }
     }

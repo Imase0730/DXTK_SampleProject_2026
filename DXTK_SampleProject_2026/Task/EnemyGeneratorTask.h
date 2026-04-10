@@ -13,9 +13,6 @@
 
 class EnemyGeneratorTask : public Imase::Task
 {
-public:
-
-
 private:
 
 	// １秒間あたりの出現数

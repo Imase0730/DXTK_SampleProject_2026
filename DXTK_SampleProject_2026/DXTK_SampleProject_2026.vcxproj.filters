@@ -81,6 +81,9 @@
     <ClInclude Include="Task\EnemyGeneratorTask.h">
       <Filter>Task</Filter>
     </ClInclude>
+    <ClInclude Include="Task\ExplosionTask.h">
+      <Filter>Task</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -126,6 +129,9 @@
       <Filter>Task</Filter>
     </ClCompile>
     <ClCompile Include="Task\EnemyGeneratorTask.cpp">
+      <Filter>Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Task\ExplosionTask.cpp">
       <Filter>Task</Filter>
     </ClCompile>
   </ItemGroup>

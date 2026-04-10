@@ -52,6 +52,31 @@ bool EnemyTask::Update(float elapsedTime)
         return false;
     }
 
+    // 弾の発射用タイマーを加算
+    m_shootTimer += elapsedTime;
+    if (m_shootTimer > SHOOT_INTERVAL)
+    {
+        // 弾の発射用タイマーの初期化
+        m_shootTimer = 0.0f;
+
+        // 画面サイズ取得
+        RECT rect = m_gameContext.deviceResources.GetOutputSize();
+
+        // 弾タスクを生成
+        BulletTask* bullet = GetParent()->AddChild<BulletTask>(
+            m_gameContext,
+            m_spriteBatch,
+            m_pTexture,
+            // 敵の中央下から弾を発射
+            SimpleMath::Vector2(
+                m_position.x + (EnemyTask::SIZE - BulletTask::SIZE) / 2,
+                m_position.y + (EnemyTask::SIZE - BulletTask::SIZE)
+            ),
+            SimpleMath::Vector2(0.0f, BULLET_SPEED),
+            Faction::Enemy
+        );
+    }
+
     return true;
 }
 
@@ -65,15 +90,15 @@ void EnemyTask::Render()
     m_spriteBatch.Draw(m_pTexture, m_position, &srcRect, Colors::White, 0.0f, { 0.0f, 0.0f }, 2.0f);
 }
 
-// 境界ボックスを取得する関数
-RECT EnemyTask::GetBoundingBox() const
+// 境界を取得する関数
+RECT EnemyTask::GetBoundingRect() const
 {
     RECT rect{};
 
-    rect.left = m_position.x;
-    rect.right = m_position.x + EnemyTask::SIZE;
-    rect.top = m_position.y;
-    rect.bottom = m_position.y + EnemyTask::SIZE;
+    rect.left = static_cast<LONG>(m_position.x);
+    rect.right = static_cast<LONG>(m_position.x + EnemyTask::SIZE);
+    rect.top = static_cast<LONG>(m_position.y);
+    rect.bottom = static_cast<LONG>(m_position.y + EnemyTask::SIZE);
 
     return rect;
 }

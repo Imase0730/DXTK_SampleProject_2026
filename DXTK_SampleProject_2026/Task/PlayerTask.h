@@ -36,7 +36,8 @@ public:
 	PlayerTask(
 		const GameContext& gameContext,
 		DirectX::SpriteBatch& spriteBatch,
-		ID3D11ShaderResourceView* pTexture
+		ID3D11ShaderResourceView* pTexture,
+		DirectX::SimpleMath::Vector2 position
 	);
 
 	// 更新
@@ -45,17 +46,14 @@ public:
 	// 描画
 	void Render() override;
 
-	// 位置を設定する関数
-	void SetPosition(DirectX::SimpleMath::Vector2 position) { m_position = position; }
-
 	// 当たり判定用のグループを取得する関数
 	Faction GetFaction() const override
 	{
 		return Faction::Player;
 	}
 	
-	// 境界ボックスを取得する関数
-	RECT GetBoundingBox() const;
+	// 境界を取得する関数
+	RECT GetBoundingRect() const;
 
 private:
 

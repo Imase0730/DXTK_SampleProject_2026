@@ -33,17 +33,8 @@ void SceneA::Update(Imase::ISceneController<SceneId>& sceneController, GameConte
 	// タスクの更新
 	m_taskSystem.Update(elapsedTime);
 
-	// 弾のリスト
-	auto bullets = m_taskSystem.FindByTag(L"Bullet");
-	// 敵のリスト
-	auto enemies = m_taskSystem.FindByTag(L"Enemy");
-
-	for (auto* bullet : bullets)
-	{
-		for (auto* enemy : enemies)
-		{
-		}
-    }
+	// 当たり判定
+	m_collisionManager.Check(m_taskSystem);
 
 	debugRenderer.DrawText({ 0.0f, 0.0f }, L"SceneA");
 }
@@ -82,11 +73,13 @@ void SceneA::OnEnter(GameContext& gameContext)
 	);
 
 	// プレイヤーを生成
-	m_playerTask = m_taskSystem.GetRoot()->AddChild<PlayerTask>(gameContext, *m_spriteBatch, m_texture.Get());
-
-	// プレイヤーの初期位置設定（画面中央）
 	RECT rect = gameContext.deviceResources.GetOutputSize();
-	m_playerTask->SetPosition({ (rect.right - PlayerTask::SIZE) / 2.0f, 600.0f });
+	m_taskSystem.GetRoot()->AddChild<PlayerTask>(
+		gameContext,
+		*m_spriteBatch,
+		m_texture.Get(),
+		SimpleMath::Vector2((rect.right - PlayerTask::SIZE) / 2.0f, 600.0f)	// 初期位置（画面中央）
+	);
 
 	// 敵ジェネレータを生成
 	m_taskSystem.GetRoot()->AddChild<EnemyGeneratorTask>(gameContext, *m_spriteBatch, m_texture.Get());

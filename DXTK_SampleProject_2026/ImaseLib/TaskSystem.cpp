@@ -107,6 +107,31 @@ namespace Imase
         }
     }
 
+    // タスク登録解除
+    void TaskSystem::Unregister(Task* task)
+    {
+        // IDMapから削除
+        m_idMap.erase(task->GetID());
+
+        // TagMapから削除
+        if (!task->GetTag().empty())
+        {
+            auto range = m_tagMap.equal_range(task->GetTag());
+
+            for (auto it = range.first; it != range.second; )
+            {
+                if (it->second == task)
+                {
+                    it = m_tagMap.erase(it);
+                }
+                else
+                {
+                    ++it;
+                }
+            }
+        }
+    }
+
     // 更新
     void TaskSystem::Update(float elapsedTime)
     {
@@ -140,27 +165,31 @@ namespace Imase
         // 削除するタスクリスト作成
         m_root->CollectRemoved(removed);
 
-        // タスクを削除
-        m_root->Cleanup();
-        
         for (auto* task : removed)
         {
-            // IDMapから削除
-            m_idMap.erase(task->GetID());
-            // TagMapから削除
-            if (!task->GetTag().empty())
-            {
-                auto range = m_tagMap.equal_range(task->GetTag());
-                for (auto it = range.first; it != range.second; ++it)
-                {
-                    if (it->second == task)
-                    {
-                        m_tagMap.erase(it);
-                        break;
-                    }
-                }
-            }
+            Unregister(task);
+            //// IDMapから削除
+            //m_idMap.erase(task->GetID());
+            //// TagMapから削除
+            //if (!task->GetTag().empty())
+            //{
+            //    auto range = m_tagMap.equal_range(task->GetTag());
+            //    for (auto it = range.first; it != range.second;)
+            //    {
+            //        if (it->second == task)
+            //        {
+            //            it = m_tagMap.erase(it);
+            //        }
+            //        else
+            //        {
+            //            ++it;
+            //        }
+            //    }
+            //}
         }
+
+        // タスクを削除
+        m_root->Cleanup();
 
         //--------------------------------
         // ChangeParent適用

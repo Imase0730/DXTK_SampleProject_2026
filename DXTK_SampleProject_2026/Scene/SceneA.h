@@ -13,6 +13,7 @@
 #include "SceneId.h"
 #include "ImaseLib/TaskSystem.h"
 #include "Task/PlayerTask.h"
+#include "CollisionManager.h"
 
 class SceneA : public Imase::SceneBase<SceneId, GameContext>
 {
@@ -40,5 +41,8 @@ private:
 
 	// プレイヤータスクへのポインタ
 	PlayerTask* m_playerTask = nullptr;
+
+	// 当たり判定を行うマネージャー
+	CollisionManager m_collisionManager;
 };
 

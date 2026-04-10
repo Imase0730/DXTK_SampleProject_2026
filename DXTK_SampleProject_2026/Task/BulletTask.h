@@ -52,8 +52,8 @@ public:
 		return m_faction;
 	}
 
-	// 境界ボックスを取得する関数
-	RECT GetBoundingBox() const;
+	// 境界を取得する関数
+	RECT GetBoundingRect() const;
 
 private:
 
