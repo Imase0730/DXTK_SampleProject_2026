@@ -1,15 +1,15 @@
 ﻿//--------------------------------------------------------------------------------------
 // File: ShootingGameScene.h
 //
-// サンプルシーンクラス
+// シューティングゲームシーン
 //
 // Date: 2026.2.24
 // Author: Hideyasu Imase
 //--------------------------------------------------------------------------------------
 #pragma once
 
-#include "../../ImaseLib/SceneManager.h"
-#include "../../ImaseLib/TaskSystem.h"
+#include "ImaseLib/SceneManager.h"
+#include "ImaseLib/TaskSystem.h"
 #include "../GameContext.h"
 #include "../SceneId.h"
 #include "CollisionManager.h"

@@ -17,14 +17,14 @@
     <Filter Include="DirectXTK_Utilities">
       <UniqueIdentifier>{b9855007-75dd-44b7-bb00-1e824ff358fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Task">
-      <UniqueIdentifier>{f6e1ce10-692e-47a2-8e04-affe471dc603}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene\ShootingGameScene">
       <UniqueIdentifier>{d0fbfcf7-01e7-4014-89aa-2e620291a210}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene\SceneB">
       <UniqueIdentifier>{e362b242-ab14-4c7d-97b8-fa66ec7109c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\ShootingGameScene\Task">
+      <UniqueIdentifier>{5c1e9160-8444-4fe7-8416-6f045a37b0a9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,24 +60,6 @@
     <ClInclude Include="ImaseLib\TaskSystem.h">
       <Filter>ImaseLib</Filter>
     </ClInclude>
-    <ClInclude Include="Task\PlayerTask.h">
-      <Filter>Task</Filter>
-    </ClInclude>
-    <ClInclude Include="Task\BulletTask.h">
-      <Filter>Task</Filter>
-    </ClInclude>
-    <ClInclude Include="Task\GameTypes.h">
-      <Filter>Task</Filter>
-    </ClInclude>
-    <ClInclude Include="Task\EnemyTask.h">
-      <Filter>Task</Filter>
-    </ClInclude>
-    <ClInclude Include="Task\EnemyGeneratorTask.h">
-      <Filter>Task</Filter>
-    </ClInclude>
-    <ClInclude Include="Task\ExplosionTask.h">
-      <Filter>Task</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\SceneB\SceneB.h">
       <Filter>Scene\SceneB</Filter>
     </ClInclude>
@@ -86,6 +68,24 @@
     </ClInclude>
     <ClInclude Include="Scene\ShootingGameScene\ShootingGameScene.h">
       <Filter>Scene\ShootingGameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\ShootingGameScene\Task\BulletTask.h">
+      <Filter>Scene\ShootingGameScene\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\ShootingGameScene\Task\EnemyGeneratorTask.h">
+      <Filter>Scene\ShootingGameScene\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\ShootingGameScene\Task\EnemyTask.h">
+      <Filter>Scene\ShootingGameScene\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\ShootingGameScene\Task\ExplosionTask.h">
+      <Filter>Scene\ShootingGameScene\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\ShootingGameScene\Task\GameTypes.h">
+      <Filter>Scene\ShootingGameScene\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\ShootingGameScene\Task\PlayerTask.h">
+      <Filter>Scene\ShootingGameScene\Task</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -113,21 +113,6 @@
     <ClCompile Include="ImaseLib\TaskSystem.cpp">
       <Filter>ImaseLib</Filter>
     </ClCompile>
-    <ClCompile Include="Task\PlayerTask.cpp">
-      <Filter>Task</Filter>
-    </ClCompile>
-    <ClCompile Include="Task\BulletTask.cpp">
-      <Filter>Task</Filter>
-    </ClCompile>
-    <ClCompile Include="Task\EnemyTask.cpp">
-      <Filter>Task</Filter>
-    </ClCompile>
-    <ClCompile Include="Task\EnemyGeneratorTask.cpp">
-      <Filter>Task</Filter>
-    </ClCompile>
-    <ClCompile Include="Task\ExplosionTask.cpp">
-      <Filter>Task</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\SceneB\SceneB.cpp">
       <Filter>Scene\SceneB</Filter>
     </ClCompile>
@@ -136,6 +121,21 @@
     </ClCompile>
     <ClCompile Include="Scene\ShootingGameScene\ShootingGameScene.cpp">
       <Filter>Scene\ShootingGameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\ShootingGameScene\Task\BulletTask.cpp">
+      <Filter>Scene\ShootingGameScene\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\ShootingGameScene\Task\EnemyGeneratorTask.cpp">
+      <Filter>Scene\ShootingGameScene\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\ShootingGameScene\Task\EnemyTask.cpp">
+      <Filter>Scene\ShootingGameScene\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\ShootingGameScene\Task\ExplosionTask.cpp">
+      <Filter>Scene\ShootingGameScene\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\ShootingGameScene\Task\PlayerTask.cpp">
+      <Filter>Scene\ShootingGameScene\Task</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

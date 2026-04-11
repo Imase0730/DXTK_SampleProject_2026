@@ -8,10 +8,10 @@
 //--------------------------------------------------------------------------------------
 #include "pch.h"
 #include "CollisionManager.h"
-#include "../../Task/PlayerTask.h"
-#include "../../Task/EnemyTask.h"
-#include "../../Task/BulletTask.h"
-#include "../../Task/GameTypes.h"
+#include "Task/PlayerTask.h"
+#include "Task/EnemyTask.h"
+#include "Task/BulletTask.h"
+#include "Task/GameTypes.h"
 
 // 矩形同士の衝突判定
 bool CollisionManager::IsColliding(RECT a, RECT b)

@@ -1,7 +1,7 @@
 ﻿//--------------------------------------------------------------------------------------
 // File: ShootingGameScene.cpp
 //
-// サンプルシーンクラス
+// シューティングゲームシーン
 //
 // Date: 2026.2.24
 // Author: Hideyasu Imase
@@ -9,8 +9,8 @@
 #include "pch.h"
 #include "ShootingGameScene.h"
 #include "../SceneB/SceneB.h"
-#include "../../Task/PlayerTask.h"
-#include "../../Task/EnemyGeneratorTask.h"
+#include "Task/PlayerTask.h"
+#include "Task/EnemyGeneratorTask.h"
 
 using namespace DirectX;
 

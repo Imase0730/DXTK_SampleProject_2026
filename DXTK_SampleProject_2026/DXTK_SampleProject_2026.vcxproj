@@ -195,12 +195,12 @@
     <ClInclude Include="Scene\SceneId.h" />
     <ClInclude Include="Scene\ShootingGameScene\CollisionManager.h" />
     <ClInclude Include="Scene\ShootingGameScene\ShootingGameScene.h" />
-    <ClInclude Include="Task\BulletTask.h" />
-    <ClInclude Include="Task\EnemyGeneratorTask.h" />
-    <ClInclude Include="Task\EnemyTask.h" />
-    <ClInclude Include="Task\ExplosionTask.h" />
-    <ClInclude Include="Task\GameTypes.h" />
-    <ClInclude Include="Task\PlayerTask.h" />
+    <ClInclude Include="Scene\ShootingGameScene\Task\BulletTask.h" />
+    <ClInclude Include="Scene\ShootingGameScene\Task\EnemyGeneratorTask.h" />
+    <ClInclude Include="Scene\ShootingGameScene\Task\EnemyTask.h" />
+    <ClInclude Include="Scene\ShootingGameScene\Task\ExplosionTask.h" />
+    <ClInclude Include="Scene\ShootingGameScene\Task\GameTypes.h" />
+    <ClInclude Include="Scene\ShootingGameScene\Task\PlayerTask.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Common\DeviceResources.cpp" />
@@ -221,11 +221,11 @@
     <ClCompile Include="Scene\SceneB\SceneB.cpp" />
     <ClCompile Include="Scene\ShootingGameScene\CollisionManager.cpp" />
     <ClCompile Include="Scene\ShootingGameScene\ShootingGameScene.cpp" />
-    <ClCompile Include="Task\BulletTask.cpp" />
-    <ClCompile Include="Task\EnemyGeneratorTask.cpp" />
-    <ClCompile Include="Task\EnemyTask.cpp" />
-    <ClCompile Include="Task\ExplosionTask.cpp" />
-    <ClCompile Include="Task\PlayerTask.cpp" />
+    <ClCompile Include="Scene\ShootingGameScene\Task\BulletTask.cpp" />
+    <ClCompile Include="Scene\ShootingGameScene\Task\EnemyGeneratorTask.cpp" />
+    <ClCompile Include="Scene\ShootingGameScene\Task\EnemyTask.cpp" />
+    <ClCompile Include="Scene\ShootingGameScene\Task\ExplosionTask.cpp" />
+    <ClCompile Include="Scene\ShootingGameScene\Task\PlayerTask.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

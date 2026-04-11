@@ -8,7 +8,7 @@
 //--------------------------------------------------------------------------------------
 #pragma once
 
-#include "../../ImaseLib/TaskSystem.h"
+#include "ImaseLib/TaskSystem.h"
 
 class CollisionManager
 {

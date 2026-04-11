@@ -8,8 +8,8 @@
 //--------------------------------------------------------------------------------------
 #pragma once
 
-#include "../ImaseLib/Task.h"
-#include "../Scene/GameContext.h"
+#include "ImaseLib/Task.h"
+#include "../../GameContext.h"
 
 class EnemyGeneratorTask : public Imase::Task
 {

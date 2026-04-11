@@ -1,18 +1,18 @@
 ﻿//--------------------------------------------------------------------------------------
-// File: EnemyTask.h
+// File: PlayerTask.h
 //
-// 敵タスク
+// プレイヤータスク
 //
 // Date: 2026.4.5
 // Author: Hideyasu Imase
 //--------------------------------------------------------------------------------------
 #pragma once
 
-#include "../ImaseLib/Task.h"
-#include "../Scene/GameContext.h"
+#include "ImaseLib/Task.h"
+#include "../../GameContext.h"
 #include "GameTypes.h"
 
-class EnemyTask : public Imase::Task, public IFaction
+class PlayerTask : public Imase::Task, public IFaction
 {
 public:
 
@@ -27,13 +27,16 @@ public:
 
 private:
 
-	// 弾の発射間隔
-	static constexpr float SHOOT_INTERVAL = 1.0f;
+	// 発射した弾の数
+	int m_bulletCount = 0;
+
+	// 画面上の弾の最大数
+	static constexpr int MAX_BULLET = 3;
 
 public:
 
 	// コンストラクタ
-	EnemyTask(
+	PlayerTask(
 		const GameContext& gameContext,
 		DirectX::SpriteBatch& spriteBatch,
 		ID3D11ShaderResourceView* pTexture,
@@ -49,9 +52,9 @@ public:
 	// 当たり判定用のグループを取得する関数
 	Faction GetFaction() const override
 	{
-		return Faction::Enemy;
+		return Faction::Player;
 	}
-
+	
 	// 境界を取得する関数
 	RECT GetBoundingRect() const;
 
@@ -72,6 +75,4 @@ private:
 	// 位置
 	DirectX::SimpleMath::Vector2 m_position = { 0.0f, 0.0f };
 
-	// 弾の発射用のタイマー
-	float m_shootTimer = 0.0f;
 };
