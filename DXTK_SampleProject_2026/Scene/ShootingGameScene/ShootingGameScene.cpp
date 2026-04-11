@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------------------------------------------
-// File: SceneA.cpp
+// File: ShootingGameScene.cpp
 //
 // サンプルシーンクラス
 //
@@ -7,14 +7,15 @@
 // Author: Hideyasu Imase
 //--------------------------------------------------------------------------------------
 #include "pch.h"
-#include "SceneA.h"
-#include "SceneB.h"
-#include "Task/EnemyGeneratorTask.h"
+#include "ShootingGameScene.h"
+#include "../SceneB/SceneB.h"
+#include "../../Task/PlayerTask.h"
+#include "../../Task/EnemyGeneratorTask.h"
 
 using namespace DirectX;
 
 // 更新
-void SceneA::Update(Imase::ISceneController<SceneId>& sceneController, GameContext& gameContext)
+void ShootingGameScene::Update(Imase::ISceneController<SceneId>& sceneController, GameContext& gameContext)
 {
 	auto& debugRenderer = gameContext.debugRenderer;
 
@@ -36,11 +37,11 @@ void SceneA::Update(Imase::ISceneController<SceneId>& sceneController, GameConte
 	// 当たり判定
 	m_collisionManager.Check(m_taskSystem);
 
-	debugRenderer.DrawText({ 0.0f, 0.0f }, L"SceneA");
+	debugRenderer.DrawText({ 0.0f, 0.0f }, L"ShootingGameScene");
 }
 
 // 描画
-void SceneA::Render(GameContext& gameContext)
+void ShootingGameScene::Render(GameContext& gameContext)
 {
 	auto& states = gameContext.commonStates;
 
@@ -59,7 +60,7 @@ void SceneA::Render(GameContext& gameContext)
 }
 
 // シーン切り替え時に呼び出される関数
-void SceneA::OnEnter(GameContext& gameContext)
+void ShootingGameScene::OnEnter(GameContext& gameContext)
 {
 	auto device = gameContext.deviceResources.GetD3DDevice();
 	auto context = gameContext.deviceResources.GetD3DDeviceContext();
@@ -72,7 +73,7 @@ void SceneA::OnEnter(GameContext& gameContext)
 		CreateDDSTextureFromFile(device, L"Resources/Textures/ShootingGame.dds", nullptr, m_texture.ReleaseAndGetAddressOf())
 	);
 
-	// プレイヤーを生成
+	// プレイヤータスクを生成
 	RECT rect = gameContext.deviceResources.GetOutputSize();
 	m_taskSystem.GetRoot()->AddChild<PlayerTask>(
 		gameContext,
@@ -81,6 +82,6 @@ void SceneA::OnEnter(GameContext& gameContext)
 		SimpleMath::Vector2((rect.right - PlayerTask::SIZE) / 2.0f, 600.0f)	// 初期位置（画面中央）
 	);
 
-	// 敵ジェネレータを生成
+	// 敵ジェネレータタスクを生成
 	m_taskSystem.GetRoot()->AddChild<EnemyGeneratorTask>(gameContext, *m_spriteBatch, m_texture.Get());
 }

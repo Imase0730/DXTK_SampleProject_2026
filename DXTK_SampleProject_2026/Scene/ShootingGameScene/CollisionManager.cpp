@@ -1,9 +1,17 @@
-﻿#include "pch.h"
+﻿//--------------------------------------------------------------------------------------
+// File: CollisionManager.cpp
+//
+// 当たり判定を行うクラス
+//
+// Date: 2026.4.11
+// Author: Hideyasu Imase
+//--------------------------------------------------------------------------------------
+#include "pch.h"
 #include "CollisionManager.h"
-#include "../Task/PlayerTask.h"
-#include "../Task/EnemyTask.h"
-#include "../Task/BulletTask.h"
-#include "../Task/GameTypes.h"
+#include "../../Task/PlayerTask.h"
+#include "../../Task/EnemyTask.h"
+#include "../../Task/BulletTask.h"
+#include "../../Task/GameTypes.h"
 
 // 矩形同士の衝突判定
 bool CollisionManager::IsColliding(RECT a, RECT b)
@@ -30,19 +38,21 @@ void CollisionManager::PlayerBulletVsEnemy(Imase::TaskSystem& taskSystem)
 
     for (auto* bullet : bullets)
     {
-        BulletTask* b = dynamic_cast<BulletTask*>(bullet);
+        BulletTask* bulletTask = dynamic_cast<BulletTask*>(bullet);
         for (auto* enemy : enemies)
         {
-            EnemyTask* e = dynamic_cast<EnemyTask*>(enemy);
+            EnemyTask* enemyTask = dynamic_cast<EnemyTask*>(enemy);
             // プレイヤーの発射した弾
-            if (b->GetFaction() == Faction::Player)
+            if (bulletTask->GetFaction() == Faction::Player)
             {
                 // 矩形同士の衝突判定を行う
-                if (IsColliding(b->GetBoundingRect(), e->GetBoundingRect()))
+                if (IsColliding(bulletTask->GetBoundingRect(), enemyTask->GetBoundingRect()))
                 {
+                    // 敵が爆発する
+                    enemyTask->Explotion();
                     // 弾と敵を消す
-                    b->Kill();
-                    e->Kill();
+                    bulletTask->Kill();
+                    enemyTask->Kill();
                 }
             }
         }
@@ -61,20 +71,23 @@ void CollisionManager::EnemyBulletVsPlayer(Imase::TaskSystem& taskSystem)
     // プレイヤーがいない
     if (players.size() == 0) return;
 
-    PlayerTask* player = dynamic_cast<PlayerTask*>(players[0]);
+    // プレイヤータスクを取得
+    PlayerTask* playerTask = dynamic_cast<PlayerTask*>(players[0]);
+
     for (auto* bullet : bullets)
     {
-        BulletTask* b = dynamic_cast<BulletTask*>(bullet);
+        BulletTask* bulletTask = dynamic_cast<BulletTask*>(bullet);
         // 敵の発射した弾
-        if (b->GetFaction() == Faction::Enemy)
+        if (bulletTask->GetFaction() == Faction::Enemy)
         {
             // 矩形同士の衝突判定を行う
-            if (IsColliding(b->GetBoundingRect(), player->GetBoundingRect()))
+            if (IsColliding(bulletTask->GetBoundingRect(), playerTask->GetBoundingRect()))
             {
-                // 弾消去
-                b->Kill();
-                // プレイヤー死亡
-                player->Kill();
+                // プレイヤーが爆発する
+                playerTask->Explotion();
+                // プレイヤーと弾を消す
+                bulletTask->Kill();
+                playerTask->Kill();
                 return;
             }
         }

@@ -22,6 +22,9 @@ public:
 	// 移動の速さ(dot/s)
 	static constexpr int SPEED = 300;
 
+	// 弾の発射の速さ(dot/s)
+	static constexpr int BULLET_SPEED = 500;
+
 private:
 
 	// 発射した弾の数
@@ -54,6 +57,9 @@ public:
 	
 	// 境界を取得する関数
 	RECT GetBoundingRect() const;
+
+	// 爆発エフェクトを発生する関数
+	void Explotion();
 
 private:
 

@@ -20,6 +20,12 @@
     <Filter Include="Task">
       <UniqueIdentifier>{f6e1ce10-692e-47a2-8e04-affe471dc603}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\ShootingGameScene">
+      <UniqueIdentifier>{d0fbfcf7-01e7-4014-89aa-2e620291a210}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\SceneB">
+      <UniqueIdentifier>{e362b242-ab14-4c7d-97b8-fa66ec7109c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -33,12 +39,6 @@
     <ClInclude Include="ImaseLib\SceneManager.h">
       <Filter>ImaseLib</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\SceneA.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\SceneB.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="ImaseLib\DebugCamera.h">
       <Filter>ImaseLib</Filter>
     </ClInclude>
@@ -47,9 +47,6 @@
     </ClInclude>
     <ClInclude Include="DirectXTK_Utilities\DebugDraw.h">
       <Filter>DirectXTK_Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\GameContext.h">
-      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneId.h">
       <Filter>Scene</Filter>
@@ -69,9 +66,6 @@
     <ClInclude Include="Task\BulletTask.h">
       <Filter>Task</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\CollisionManager.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Task\GameTypes.h">
       <Filter>Task</Filter>
     </ClInclude>
@@ -84,6 +78,15 @@
     <ClInclude Include="Task\ExplosionTask.h">
       <Filter>Task</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\SceneB\SceneB.h">
+      <Filter>Scene\SceneB</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\ShootingGameScene\CollisionManager.h">
+      <Filter>Scene\ShootingGameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\ShootingGameScene\ShootingGameScene.h">
+      <Filter>Scene\ShootingGameScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -91,12 +94,6 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Common\DeviceResources.cpp">
       <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\SceneA.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\SceneB.cpp">
-      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="ImaseLib\DebugCamera.cpp">
       <Filter>ImaseLib</Filter>
@@ -122,9 +119,6 @@
     <ClCompile Include="Task\BulletTask.cpp">
       <Filter>Task</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\CollisionManager.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Task\EnemyTask.cpp">
       <Filter>Task</Filter>
     </ClCompile>
@@ -133,6 +127,15 @@
     </ClCompile>
     <ClCompile Include="Task\ExplosionTask.cpp">
       <Filter>Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneB\SceneB.cpp">
+      <Filter>Scene\SceneB</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\ShootingGameScene\CollisionManager.cpp">
+      <Filter>Scene\ShootingGameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\ShootingGameScene\ShootingGameScene.cpp">
+      <Filter>Scene\ShootingGameScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

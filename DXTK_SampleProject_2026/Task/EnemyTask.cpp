@@ -9,6 +9,7 @@
 #include "pch.h"
 #include "EnemyTask.h"
 #include "BulletTask.h"
+#include "ExplosionTask.h"
 
 using namespace DirectX;
 
@@ -28,24 +29,16 @@ EnemyTask::EnemyTask(
     SetTag(L"Enemy");
 }
 
-// デストラクタ
-EnemyTask::~EnemyTask()
-{
-    if (m_onDestroy)
-    {
-        // 敵が消滅した時に呼び出される関数を実行
-        m_onDestroy();
-    }
-}
-
 // 更新
 bool EnemyTask::Update(float elapsedTime)
 {
+    // 画面サイズ取得
+    RECT rect = m_gameContext.deviceResources.GetOutputSize();
+
     // 下へ移動
     m_position.y += SPEED * elapsedTime;
 
     // 画面外へ出たらタスクを消去
-    RECT rect = m_gameContext.deviceResources.GetOutputSize();
     float moveBottomMax = static_cast<float>(rect.bottom);
     if (m_position.y > moveBottomMax)
     {
@@ -59,11 +52,8 @@ bool EnemyTask::Update(float elapsedTime)
         // 弾の発射用タイマーの初期化
         m_shootTimer = 0.0f;
 
-        // 画面サイズ取得
-        RECT rect = m_gameContext.deviceResources.GetOutputSize();
-
         // 弾タスクを生成
-        BulletTask* bullet = GetParent()->AddChild<BulletTask>(
+        GetParent()->AddChild<BulletTask>(
             m_gameContext,
             m_spriteBatch,
             m_pTexture,
@@ -101,4 +91,16 @@ RECT EnemyTask::GetBoundingRect() const
     rect.bottom = static_cast<LONG>(m_position.y + EnemyTask::SIZE);
 
     return rect;
+}
+
+// 爆発エフェクトを発生する関数
+void EnemyTask::Explotion()
+{
+    // 爆発エフェクトタスクを生成
+    GetParent()->AddChild<ExplosionTask>(
+        m_gameContext,
+        m_spriteBatch,
+        m_pTexture,
+        m_position
+    );
 }

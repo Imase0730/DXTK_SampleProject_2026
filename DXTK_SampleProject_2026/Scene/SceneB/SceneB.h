@@ -8,11 +8,11 @@
 //--------------------------------------------------------------------------------------
 #pragma once
 
-#include "ImaseLib/SceneManager.h"
-#include "ImaseLib/DebugCamera.h"
-#include "ImaseLib/GridFloor.h"
-#include "GameContext.h"
-#include "SceneId.h"
+#include "../../ImaseLib/SceneManager.h"
+#include "../../ImaseLib/DebugCamera.h"
+#include "../../ImaseLib/GridFloor.h"
+#include "../GameContext.h"
+#include "../SceneId.h"
 
 class SceneB : public Imase::SceneBase<SceneId, GameContext>
 {

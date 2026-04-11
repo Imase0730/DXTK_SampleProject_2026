@@ -63,8 +63,14 @@ bool BulletTask::Update(float elapsedTime)
 // 描画
 void BulletTask::Render()
 {
-    // テクスチャ上の矩形
+    // プレイヤーの弾の絵
     RECT srcRect = { 62, 32, 62 + 16, 32 + 16 };
+
+    // 敵の弾の絵
+    if (m_faction == Faction::Enemy)
+    {
+        srcRect = RECT{ 62 + 16, 32, 62 + 32, 32 + 16 };
+    }
 
     // 弾の描画
     m_spriteBatch.Draw(m_pTexture, m_position, &srcRect);

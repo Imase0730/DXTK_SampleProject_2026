@@ -12,6 +12,6 @@
 
 enum class SceneId : uint8_t
 {
-	SceneA,
+	ShootingGameScene,
 	SceneB
 };

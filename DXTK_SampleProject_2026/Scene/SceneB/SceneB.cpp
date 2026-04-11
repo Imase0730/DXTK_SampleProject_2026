@@ -8,7 +8,7 @@
 //--------------------------------------------------------------------------------------
 #include "pch.h"
 #include "SceneB.h"
-#include "SceneA.h"
+#include "../ShootingGameScene/ShootingGameScene.h"
 
 using namespace DirectX;
 
@@ -25,7 +25,7 @@ void SceneB::Update(Imase::ISceneController<SceneId>& sceneController, GameConte
 	if (tracker.pressed.Space)
 	{
 		// 次のシーンへ
-		sceneController.RequestSwitch(SceneId::SceneA);
+		sceneController.RequestSwitch(SceneId::ShootingGameScene);
 	}
 
 	auto& debugRenderer = gameContext.debugRenderer;

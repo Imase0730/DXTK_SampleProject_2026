@@ -5,8 +5,8 @@
 #include "pch.h"
 #include "Game.h"
 #include "Scene/SceneId.h"
-#include "Scene/SceneA.h"
-#include "Scene/SceneB.h"
+#include "Scene/ShootingGameScene/ShootingGameScene.h"
+#include "Scene/SceneB/SceneB.h"
 #include "Task/PlayerTask.h"
 
 extern void ExitGame() noexcept;
@@ -49,7 +49,7 @@ void Game::Initialize(HWND window, int width, int height)
     */
 
     // シーンの登録
-    m_sceneManager.RegisterScene<SceneA>(SceneId::SceneA);
+    m_sceneManager.RegisterScene<ShootingGameScene>(SceneId::ShootingGameScene);
     m_sceneManager.RegisterScene<SceneB>(SceneId::SceneB);
 
     // ゲームコンテキストの設定
@@ -63,7 +63,7 @@ void Game::Initialize(HWND window, int width, int height)
     );
 
     // 起動シーンの設定
-    m_sceneManager.SetFirstScene(SceneId::SceneA, *m_gameContext);
+    m_sceneManager.SetFirstScene(SceneId::ShootingGameScene, *m_gameContext);
 }
 
 #pragma region Frame Update

@@ -30,15 +30,29 @@ ExplosionTask::ExplosionTask(
 // 更新
 bool ExplosionTask::Update(float elapsedTime)
 {
+    // アニメーションタイマーを加算
+    m_animationTimer += elapsedTime;
+    if (m_animationTimer > ANIMATION_INTERVAL)
+    {
+        m_animationTimer = 0.0f;
+        m_animation++;
+        if (m_animation == 4) return false;
+    }
+
     return true;
 }
 
 // 描画
 void ExplosionTask::Render()
 {
-    // テクスチャ上の矩形
-    RECT srcRect = { 96, 0, 96 + 32, 32 };
-
-    // 敵の描画（2倍の大きさで表示）
-    m_spriteBatch.Draw(m_pTexture, m_position, &srcRect, Colors::White, 0.0f, { 0.0f, 0.0f }, 2.0f);
+    // 爆発の描画（4倍の大きさで表示）
+    m_spriteBatch.Draw(
+        m_pTexture,
+        m_position,
+        &ExplosionSpritesRect[m_animation],
+        Colors::White,
+        0.0f,
+        { 0.0f, 0.0f },
+        4.0f
+    );
 }

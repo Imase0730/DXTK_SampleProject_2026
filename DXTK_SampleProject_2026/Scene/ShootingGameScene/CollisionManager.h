@@ -1,6 +1,14 @@
-﻿#pragma once
+﻿//--------------------------------------------------------------------------------------
+// File: CollisionManager.h
+//
+// 当たり判定を行うクラス
+//
+// Date: 2026.4.11
+// Author: Hideyasu Imase
+//--------------------------------------------------------------------------------------
+#pragma once
 
-#include "../ImaseLib/TaskSystem.h"
+#include "../../ImaseLib/TaskSystem.h"
 
 class CollisionManager
 {

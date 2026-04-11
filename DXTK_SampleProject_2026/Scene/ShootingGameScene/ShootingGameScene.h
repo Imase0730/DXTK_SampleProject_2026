@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------------------------------------------
-// File: SceneA.h
+// File: ShootingGameScene.h
 //
 // サンプルシーンクラス
 //
@@ -8,14 +8,13 @@
 //--------------------------------------------------------------------------------------
 #pragma once
 
-#include "ImaseLib/SceneManager.h"
-#include "GameContext.h"
-#include "SceneId.h"
-#include "ImaseLib/TaskSystem.h"
-#include "Task/PlayerTask.h"
+#include "../../ImaseLib/SceneManager.h"
+#include "../../ImaseLib/TaskSystem.h"
+#include "../GameContext.h"
+#include "../SceneId.h"
 #include "CollisionManager.h"
 
-class SceneA : public Imase::SceneBase<SceneId, GameContext>
+class ShootingGameScene : public Imase::SceneBase<SceneId, GameContext>
 {
 public:
 
@@ -38,9 +37,6 @@ private:
 
 	// シェーダーリソースビュー
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
-
-	// プレイヤータスクへのポインタ
-	PlayerTask* m_playerTask = nullptr;
 
 	// 当たり判定を行うマネージャー
 	CollisionManager m_collisionManager;

@@ -40,20 +40,11 @@ public:
 		DirectX::SimpleMath::Vector2 position
 	);
 
-	// デストラクタ
-	~EnemyTask();
-
 	// 更新
 	bool Update(float elapsedTime) override;
 
 	// 描画
 	void Render() override;
-
-	// 消滅した時に呼び出される関数を設定する関数
-	void SetOnDestroy(std::function<void()> func)
-	{
-		m_onDestroy = func;
-	}
 
 	// 当たり判定用のグループを取得する関数
 	Faction GetFaction() const override
@@ -63,6 +54,9 @@ public:
 
 	// 境界を取得する関数
 	RECT GetBoundingRect() const;
+
+	// 爆発エフェクトを発生する関数
+	void Explotion();
 
 private:
 
@@ -75,13 +69,9 @@ private:
 	// テクスチャへのポインタ
 	ID3D11ShaderResourceView* m_pTexture;
 
-	// 消滅した時に呼び出される関数
-	std::function<void()> m_onDestroy;
-
 	// 位置
 	DirectX::SimpleMath::Vector2 m_position = { 0.0f, 0.0f };
 
 	// 弾の発射用のタイマー
 	float m_shootTimer = 0.0f;
-
 };

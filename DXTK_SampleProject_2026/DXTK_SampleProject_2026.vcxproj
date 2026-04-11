@@ -190,12 +190,11 @@
     <ClInclude Include="ImaseLib\Task.h" />
     <ClInclude Include="ImaseLib\TaskSystem.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Scene\CollisionManager.h" />
-    <ClInclude Include="Scene\GameContext.h" />
-    <ClInclude Include="Scene\SceneA.h" />
-    <ClInclude Include="Scene\SceneB.h" />
     <ClInclude Include="Common\StepTimer.h" />
+    <ClInclude Include="Scene\SceneB\SceneB.h" />
     <ClInclude Include="Scene\SceneId.h" />
+    <ClInclude Include="Scene\ShootingGameScene\CollisionManager.h" />
+    <ClInclude Include="Scene\ShootingGameScene\ShootingGameScene.h" />
     <ClInclude Include="Task\BulletTask.h" />
     <ClInclude Include="Task\EnemyGeneratorTask.h" />
     <ClInclude Include="Task\EnemyTask.h" />
@@ -219,9 +218,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Scene\CollisionManager.cpp" />
-    <ClCompile Include="Scene\SceneA.cpp" />
-    <ClCompile Include="Scene\SceneB.cpp" />
+    <ClCompile Include="Scene\SceneB\SceneB.cpp" />
+    <ClCompile Include="Scene\ShootingGameScene\CollisionManager.cpp" />
+    <ClCompile Include="Scene\ShootingGameScene\ShootingGameScene.cpp" />
     <ClCompile Include="Task\BulletTask.cpp" />
     <ClCompile Include="Task\EnemyGeneratorTask.cpp" />
     <ClCompile Include="Task\EnemyTask.cpp" />

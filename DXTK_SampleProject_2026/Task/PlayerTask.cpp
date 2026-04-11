@@ -9,6 +9,7 @@
 #include "pch.h"
 #include "PlayerTask.h"
 #include "BulletTask.h"
+#include "ExplosionTask.h"
 
 using namespace DirectX;
 
@@ -47,7 +48,7 @@ bool PlayerTask::Update(float elapsedTime)
         m_position.x += SPEED * elapsedTime;
     }
 
-    // Zキー
+    // Zキーで弾を発射
     if (m_gameContext.keyboardTracker.pressed.Z)
     {
         // 弾数制限
@@ -59,15 +60,16 @@ bool PlayerTask::Update(float elapsedTime)
                 m_spriteBatch,
                 m_pTexture,
                 SimpleMath::Vector2(m_position.x + (PlayerTask::SIZE - BulletTask::SIZE) / 2, m_position.y),
-                SimpleMath::Vector2(0.0f, -300.0f),
+                SimpleMath::Vector2(0.0f, -BULLET_SPEED),
                 Faction::Player
             );
             // 弾タスクが消滅した時に呼び出される関数を登録
             bullet->SetOnDestroy([this]()
                 {
+                    // 弾の発射数を減算する
                     m_bulletCount--;
                 });
-            // 弾の数を加算
+            // 弾の発射数を加算
             m_bulletCount++;
         }
     }
@@ -109,4 +111,16 @@ RECT PlayerTask::GetBoundingRect() const
     rect.bottom = static_cast<LONG>(m_position.y + PlayerTask::SIZE);
 
     return rect;
+}
+
+// 爆発エフェクトを発生する関数
+void PlayerTask::Explotion()
+{
+    // 爆発エフェクトタスクを生成
+    GetParent()->AddChild<ExplosionTask>(
+        m_gameContext,
+        m_spriteBatch,
+        m_pTexture,
+        m_position
+    );
 }
