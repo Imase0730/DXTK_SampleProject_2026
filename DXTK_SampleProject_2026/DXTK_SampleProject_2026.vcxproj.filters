@@ -87,6 +87,7 @@
     <ClInclude Include="Scene\ShootingGameScene\Task\PlayerTask.h">
       <Filter>Scene\ShootingGameScene\Task</Filter>
     </ClInclude>
+    <ClInclude Include="GameContext.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
